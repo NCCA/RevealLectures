@@ -820,7 +820,6 @@ if __name__ == "__main__":
 ## [format](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/FormatString.py)
 
 <div class="stretch">
-
 <iframe src="format.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
 </div>
 
@@ -1091,3 +1090,941 @@ FILE=open('text.txt',''w')
 - The open function takes two parameters
   - The fist is a String for the name of the file to open
   - The 2nd  is the open mode 'r' for reading from a file 'w' for writing to a file
+
+--
+
+## The close method
+
+``` python
+FILE.close()
+```
+
+- Once a file has been finished with it must be closed.
+- This is especially important if we are writing to a file as the OS may be storing these values in memory.
+- The close function actually forces the OS to flush the file to disk and closes thing properly
+
+--
+
+## [Example](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/ReadFile.py)
+
+```python
+#!/usr/bin/python
+
+import os
+import sys
+
+def Usage() :
+	print "ReadFile [filename]"
+
+def main(argv=None):
+# check to see if we have enough arguments
+	if len(sys.argv) !=2 :
+		Usage()
+	else :
+		# get the old and new file names
+		FileName=sys.argv[1]
+		if (os.path.exists(FileName)) :
+			FILE=open(FileName,"r")
+			lines=FILE.readlines()
+			# now we have read the data close the file
+			FILE.close()
+			LineNum=0
+			for line in lines :
+				print "%04d %s" %(LineNum,line),
+				LineNum+=1
+
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+--
+
+## [write file](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/WriteData.py)
+```python
+#!/usr/bin/python
+
+import os
+import shutil
+import sys
+# import the uniform function from random
+from random import uniform
+
+def Usage() :
+	print "WriteData [filename] Number"
+
+def main(argv=None):
+# check to see if we have enough arguments
+	if len(sys.argv) !=3 :
+		Usage()
+	else :
+		# get the file name to write to
+		FileName=sys.argv[1]
+		# convert the 2nd argument to an int
+		Num=int(sys.argv[2])
+		# try to open the file
+		try :
+			FILE=open(FileName,"w")
+		# if this fails catch the error and exit
+		except IOError :
+			print "Error opening file",FileName
+			return
+		# loop and create some ranom values to write to the file
+		for i in range(0,Num) :
+			FILE.write("Point %f %f %f\n" %(uniform(-10,10),uniform(-10,10),uniform(-10,10)) )
+		# finally close the file
+		FILE.close()
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+--
+
+## output
+
+```
+Point -8.079503 -5.887453 0.477799
+Point -8.509921 -1.826855 6.271168
+Point 5.899356 9.357611 6.468166
+Point 8.883614 -7.286649 -7.365122
+Point -6.063683 -4.825969 -3.024902
+Point -0.119126 5.620598 5.814827
+Point 8.060026 2.640244 -4.197079
+Point 8.952118 1.571210 8.069305
+Point -9.708913 5.454307 2.763587
+Point -2.809199 -5.292178 3.994426
+Point 2.788986 4.434073 8.763425
+```
+
+--
+
+## Reading the data
+- The following example reads the data from the previous program and prints it out.
+- As the data is stored on a per line basis we can read it in one hit and then process it
+
+--
+
+
+## [ReadData](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/ReadData.py)
+
+```python
+#!/usr/bin/python
+
+import os
+import shutil
+import sys
+# import the uniform function from random
+from random import uniform
+
+def Usage() :
+	print "ReadData [filename] "
+
+def main(argv=None):
+# check to see if we have enough arguments
+	if len(sys.argv) !=2 :
+		Usage()
+	else :
+		# get the file name to write to
+		FileName=sys.argv[1]
+		# try to open the file
+		try :
+			FILE=open(FileName,"r")
+		# if this fails catch the error and exit
+		except IOError :
+			print "Error opening file",FileName
+			return
+		# loop and create some ranom values to write to the file
+		Lines=FILE.readlines()
+		FILE.close()
+		for line in Lines :
+			# lets see if the line is a point
+			if line.startswith("Point") :
+				# now split it and convert it to a numberic value
+				line=line.split()
+				try :
+					x=float(line[1])
+					y=float(line[2])
+					z=float(line[3])
+					print "%f %f %f" %(x,y,z)
+				except ValueError :
+					print line
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+---
+
+## Object Orientation
+
+- Python is fully object−oriented and supports class inheritance
+- Defining a class in Python is simple  as with functions, there is no separate interface definition (as used in languages like c++)
+- A Python class starts with the reserved word class, followed by the class name. 
+- Technically, that's all that's required, since a class doesn't need to inherit from any other class.
+
+--
+
+## Python Classes
+
+- Typically a Python class is a self contained .py module with all the code for that module contained within it.
+- The class may also have special methods to initialise the data and setup any basic functions
+
+```
+class ClassName :
+  <statement 1>
+  .
+  .
+  .
+  <statement N>
+```
+
+--
+
+## [A Colour Class](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Colour.py)
+
+```python
+#!/usr/bin/python
+
+class Colour :
+	' a very simple colour container'
+	def __init__(self,r=0.0,g=0.0,b=0.0,a=1.0) :
+		'constructor to set default values'
+		self.r=r
+		self.g=g
+		self.b=b
+		self.a=a
+		
+	def debugprint(self) :
+		' method to print out the colour data for debug'
+		print '[%f,%f,%f,%f]' %(self.r,self.g,self.b,self.a)
+
+
+	def mix(self,colour,t) :
+		'''method to mix current colour with another by t
+		will catch the attribute error and pass back black if
+		wrong values are passed
+		'''
+		c=Colour()
+		try :
+			c.r=self.r+(colour.r-self.r)*t
+			c.g=self.g+(colour.g-self.g)*t
+			c.b=self.b+(colour.b-self.b)*t
+			c.a=self.a+(colour.a-self.a)*t
+		except AttributeError, e:
+			pass
+
+		return c
+```
+
+--
+
+## [Colour Test](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/ColourTest.py)
+```python
+#!/usr/bin/python
+
+from Colour import *
+
+
+red=Colour()
+red.r=1.0
+red.debugprint()
+```
+
+```bash
+./ColourTest.py
+[1.000000,0.000000,0.000000,1.000000]
+```
+
+--
+
+## ```__init__```
+
+- Is the python class initialiser, at it’s simplest level it can be thought of as a constructor but it isn’t!
+- The instantiation operation (“calling” a class object) creates an empty object. 
+- The ```__init__``` method allows use to set an initial state
+- The actual process is the python constructor is ```__new__```
+- Python uses automatic two-phase initialisation 
+  - ```__new__``` returns a valid but (usually) unpopulated object, 
+  - which then has ```__init__``` called on it automatically.
+
+--
+
+  ## methods
+
+- The class methods are defined within the same indentation scope of the rest of the class
+- There is no function overloading in Python, meaning that you can't have multiple functions with the same name but different arguments
+- The last method defined with a name will be used
+
+
+--
+
+
+## self
+
+- There are no shorthands in Python for referencing the object’s members from its methods the method function is declared with an explicit first argument representing the object, which is provided implicitly by the call.
+- By convention the first argument of a method is called self. 
+- The name self has absolutely no special meaning to Python. 
+- Note, however, that by not following the convention your code may be less readable to other Python programmers, and it is also conceivable that a class browser program might be written that relies upon such a convention.
+
+--
+
+## encapsulation
+
+- In python there is no private or protected encapsulation
+- We can access all class attributes using the . operator
+- We can also declare instance variables where ever we like in the methods (for example ```self.foo=10 ``` in a method will be available once that method has been called)
+- By convention it would be best to declare all instance variables (attributes) in the  ```__init__``` method
+
+--
+
+## Making attributes private
+- Whilst python doesn’t support private encapsulation we can fake it using name mangling
+- If we declare the ```class``` attributes using ```__``` they will be mangled and hidden from the outside of the class
+- This is shown in the following example
+
+--
+
+## [Colour Private](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/ColourPrivate.py)
+
+```python
+#!/usr/bin/python
+
+class ColourPrivate :
+	' a very simple colour container'
+	def __init__(self,r=0.0,g=0.0,b=0.0,a=1.0) :
+		'constructor to set default values'
+		self.__r=r
+		self.__g=g
+		self.__b=b
+		self.__a=a
+
+	def debugprint(self) :
+		' method to print out the colour data for debug'
+		print '[%f,%f,%f,%f]' %(self.__r,self.__g,self.__b,self.__a)
+
+	def setR(self,r) :
+		self.__r=r
+	def getR(self) :
+		return self.__r
+
+	def setG(self,g) :
+		self.__g=g
+	def getG(self) :
+		return self.__g
+
+	def setB(self,b) :
+		self.__b=b
+	def getB(self) :
+		return self.__b
+
+	def setA(self,a) :
+		self.__a=a
+	def getA(self) :
+		return self.__a
+
+	def mix(self,colour,t) :
+		'''method to mix current colour with another by t
+		will catch the attribute error and pass back black if
+		wrong values are passed
+		'''
+		c=Colour()
+		try :
+			c.__r=self.__r+(colour.__r-self.__r)*t
+			c.__g=self.__g+(colour.__g-self.__g)*t
+			c.__b=self.__b+(colour.__b-self.__b)*t
+			c.__a=self.__a+(colour.__a-self.__a)*t
+		except AttributeError, e:
+			pass
+
+		return c
+```
+
+--
+
+## [Private Test](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/ColourPTest.py)
+
+```python
+#!/usr/bin/python
+
+from ColourPrivate import *
+
+
+red=ColourPrivate()
+red.__r=1.0
+print red.getR()
+red.debugprint()
+red.setR(1.0)
+print red.getR()
+```
+
+```bash
+./ColourPTest.py
+0.0
+[0.000000,0.000000,0.000000,1.000000]
+1.0
+```
+
+--
+
+## [Attribute Access](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Attrib.py)
+
+```python
+#!/usr/bin/python
+
+class Attr :
+
+	def __init__(self,x=1.0,y=1.0) :
+		self.x=x
+		self.y=y
+
+	def __str__(self) :
+		''' this method will return our data when doing something like print v '''
+		return "[%r,%r]" %(self.x,self.y)
+
+	def __getattr__(self,name) :
+		print "the attrib %r doesn't exist" %(name)
+		
+
+	def __setattr__(self,name,value) :
+		print "trying to set attribute %r=%r" %(name,value)
+		self.__dict__[name] = value
+
+	def __delattr__(self,name) :
+		print "trying to delete %r " %(name)
+
+
+a=Attr(1,1)
+print a
+print a.w
+a.w=99
+print a.w
+
+del a.w
+```
+
+```bash
+trying to set attribute 'x'=1
+trying to set attribute 'y'=1
+[1,1]
+the attrib 'w' doesn't exist
+None
+trying to set attribute 'w'=99
+99
+trying to delete 'w'
+```
+
+--
+
+## ```__del__```
+- ```__del__``` is analogous to the destructor
+- It defines behaviour for when an object is garbage collected
+- As there is no explicit delete in python it is not always called
+- Be careful, however, as there is no guarantee that ```__del__``` will be executed if the object is still alive when the interpreter exits
+- ```__del__``` can't serve as a replacement for good coding practice
+
+--
+
+## [del test](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Del.py)
+
+```python
+#!/usr/bin/python
+
+class DelTest :
+	def __init__(self) :
+		'constructor to set default values'
+		print "init"
+
+	def __del__(self) :
+		print "deleted"
+
+```
+
+```bash
+python
+>>> from del import *
+>>> d=DelTest()
+init
+>>> d=1
+deleted
+>>>
+```
+
+--
+
+## [vec3 class](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Vec3.py)
+- The following examples are going to use the following Vec3 class definition
+
+```python
+class Vec3 :
+	''' a simple Vec3 class for basic 3D calculations etc'''
+	def __init__(self,x=0.0,y=0.0,z=0.0) :
+		self.x=x
+		self.y=y
+		self.z=z
+
+
+	def __str__(self) :
+		''' this method will return our data when doing something like print v '''
+		return "[%f,%f,%f]" %(self.x,self.y,self.z)
+
+	def __eq__(self,rhs) :
+		''' equality test'''
+		return self.x == rhs.x and self.y == rhs.y and self.z == rhs.z
+
+	def __ne__(self,rhs) :
+		''' not equal test'''
+		return self.x != rhs.x or self.y != rhs.y or self.z != rhs.z
+
+
+	def __add__(self,rhs) :
+		''' overloaded + operator for Vec3 = V1+V2'''
+		r=Vec3()
+		r.x=self.x+rhs.x
+		r.y=self.y+rhs.y
+		r.z=self.z+rhs.z
+		return r
+
+	def __sub__(self,rhs) :
+		''' overloaded - operator for Vec3 = V1-V2'''
+		r=Vec3()
+		r.x=self.x-rhs.x
+		r.y=self.y-rhs.y
+		r.z=self.z-rhs.z
+		return r
+
+	def __mul__(self,rhs) :
+		''' overloaded * scalar operator for Vec3 = V1*S'''
+		r=Vec3()
+		r.x=self.x*rhs
+		r.y=self.y*rhs
+		r.z=self.z*rhs
+		return r
+
+	def __rmul__(self,lhs) :
+		''' overloaded * scalar operator for Vec3 = V1*S'''
+		r=Vec3()
+		r.x=self.x*lhs
+		r.y=self.y*lhs
+		r.z=self.z*lhs
+		return r
+
+	def __iadd__(self,rhs) :
+		''' overloaded +- operator for V1+=V2'''
+		self.x+=rhs.x
+		self.y+=rhs.y
+		self.z+=rhs.z
+		return self
+
+	def __imul__(self,rhs) :
+		''' overloaded *= scalar operator for V1*=2'''
+		self.x*=rhs
+		self.y*=rhs
+		self.z*=rhs
+		return self
+```
+
+--
+
+## Comparison Operators
+
+- ```__cmp__(self,other)``` is the default comparison operator
+- It actually implements behavior for all of the comparison operators (<, ==, !=, etc.)
+- It is however best to define your own operators using the individual operator overloads as shown in the next code segment
+
+--
+
+## Comparison Operators
+
+```python
+# equality operator ==
+__eq__(self,rhs) 
+# inequality operator !=
+__ne__(self,rhs) 
+# less than operator <
+__lt__(self,rhs) 
+# greater than operator >=
+__gt__(self,rhs) 
+# less or equal than operator <=
+__le__(self,rhs) 
+# greater than or equal operator >=
+__ge__(self,rhs)
+
+```
+
+--
+
+## ```__str__```
+- is used with the built in print function, we can just format the string to do what we want.
+- There is also a ```__repr__``` method  used to print a human readable presentation of an object.
+
+--
+
+## Numeric Operators
+
+- The numeric operators are fairly easy, python supports the following operators which take a right hand side argument.
+
+```python
+__add__(self, other)
+__sub__(self, other)
+__mul__(self, other) 
+__floordiv__(self, other) 
+__div__(self, other) 
+__truediv__(self, other) # python 3
+__mod__(self, other) 
+__divmod__(self, other)
+__pow__  # the ** operator
+__lshift__(self, other) #<< 
+__rshift__(self, other) #>> 
+__and__(self, other) # bitwise & 
+__or__(self, other) # bitwise | 
+__xor__(self, other) # ˆ operator
+```
+
+--
+
+## Reflected Operators
+
+- In the previous examples the operators would work like this ```Vec3 * 2``` to make operators that work the other way round we use reflected operators
+- In most cases, the result of a reflected operation is the same as its normal equivalent, so you may just end up defining ```__radd__``` as calling ```__add__``` and so on. 
+
+--
+
+## Reflected Operators
+
+```python
+__radd__(self, other)
+__rsub__(self, other)
+__rmul__(self, other) 
+__rfloordiv__(self, other) 
+__rdiv__(self, other) 
+__rtruediv__(self, other) # python 3 
+__rmod__(self, other) 
+__rdivmod__(self, other)
+__rpow__ # the ** operator 
+__rlshift__(self, other) #<< 
+__rrshift__(self, other) #>> 
+__rand__(self, other) # bitwise & 
+__ror__(self, other) # bitwise | 
+__rxor__(self, other) # ˆ operator
+
+```
+
+--
+
+## Augmented Assignment
+- These are the += style operators
+```python
+__iadd__(self, other)
+__isub__(self, other)
+__imul__(self, other) 
+__ifloordiv__(self, other) 
+__idiv__(self, other) 
+__itruediv__(self, other) # python 3 
+__imod__(self, other) 
+__idivmod__(self, other)
+__ipow__ # the ** operator 
+__ilshift__(self, other) #<< 
+__irshift__(self, other) #>> 
+__iand__(self, other) # bitwise & 
+__ior__(self, other) # bitwise | 
+__ixor__(self, other) # ˆ operator
+```
+
+--
+
+## Class Representation
+- There are quite a few other special class methods that can be used if required
+
+```python
+__unicode__(self)
+__format__(self, formatstr)
+__hash__(self)
+__nonzero__(self)
+__dir__(self)
+__sizeof__(self)
+```
+
+--
+
+## Custom Containers
+
+- There are a number of special class methods that allow the defining of our own containers in python
+- The first thing we need to decide is if we need a mutable or immutable container.
+- For an immutable container we only need to define methods for the len() and access operators []
+- For mutable we need to be able to set and delete items in the container.
+- Finally we can create iterators if we wish as well.
+
+--
+
+## Custom Containers
+
+```python
+__len__(self)
+__getitem__(self, key)
+__setitem__(self, key, value)
+__delitem__(self, key)
+__iter__(self)
+__reversed__(self)
+__contains__(self, item)
+__contains__ (self,item)
+__missing__(self, key)
+```
+
+--
+
+## [Example](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/MyContainer.py)
+
+```python
+class MyContainer :
+	''' a very simple container class '''
+	def __init__(self,data=None) :
+		if data is None :
+			self.data=[]
+		else :
+			self.data=data
+
+	def __str__(self) :
+		''' method to print out the container contents'''
+		return ','.join(map(str, self.data))
+
+	def __len__(self) :
+		''' return the length of the data'''
+		return len(self.data)
+
+	def __getitem__(self,index) :
+		''' access an item in the container a=c[n]'''
+		return self.data[index]
+
+	def __setitem__(self,index,value) :
+		''' set an item in the container c[n]=v'''
+		self.data[index]=value
+
+	def __delitem__(self,index) :
+		''' remove an item at n del c[1]'''
+		del self.data[index]
+
+	def __iter__(self):
+		''' return an iterator to the data item'''
+		return iter(self.data)
+
+	def __reversed__(self):
+		''' return the reversed version of the data for the reversed function'''
+		return MyContainer(reversed(self.data))
+
+	def append(self,value) :
+		''' our own append method to add to the data'''
+		self.data.append(value)
+  ```
+
+--
+
+
+  ## [Test](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/ContainerTest.py)
+  
+  ```python
+
+  #!/usr/bin/python
+
+from MyContainer import *
+
+c=MyContainer([1,2,3,4,5,"string","c"])
+print c
+print "length of c is ",len(c)
+c[2]="new value"
+print "c[2] is ",c[2]
+del c[2]
+print "deleted item 2 ",c
+print "using the iterator"
+for i in c :
+	print i
+
+print "using reverse iterator"
+for i in reversed(c) :
+	print i
+
+c.append(999)
+print c
+```
+
+--
+
+## output
+
+```bash
+1,2,3,4,5,string,c lengthofcis 7
+c[2] is new value
+deleted item 2 1,2,4,5,string,c using the iterator
+1
+2
+4
+5
+string
+c
+using reverse iterator
+c
+string
+5
+4
+2
+1
+1,2,4,5,string,c,999                                               
+```
+
+--
+
+## Composition and Aggregation
+
+- To build more complex classes we can use composition, we just need to import the correct module
+
+![altimage](images/aggregation.svg)
+
+--
+
+## [Colour.py](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Aggregation/Colour.py)
+
+```python
+class Colour:
+	# ctor to assign values
+	def __init__(self, r=0, g=0, b=0,a=1):
+		self.r=float(r)
+		self.g=float(g)
+		self.b=float(b)
+		self.a=float(a)
+
+	# debug print function to print vector values
+	def __str__(self):
+		return '[%f,%f,%f,%f]' %(self.r,self.g,self.b,self.a)
+```
+
+--
+
+
+## [Point3.py](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Aggregation/Point3.py)
+
+```python
+class Point3:
+	# ctor to assign values
+	def __init__(self, x=0.0, y=0.0, z=0.0):
+		self.x=float(x)
+		self.y=float(y)
+		self.z=float(z)
+	# debug print function to print vector values
+	def __str__(self):
+		return  '[%f,%f,%d]' %(self.x,self.y,self.z)
+```
+
+--
+
+## [Sphere.py](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Aggregation/Sphere.py)
+
+```python
+from Point3 import Point3
+from Colour import Colour
+
+
+
+class Sphere:
+	# ctor to assign values
+	def __init__(self, pos=Point3(), colour=Colour(), radius=1,name=""):
+		self.pos=pos
+		self.colour=colour
+		self.radius=radius
+		self.name=name
+
+	def Print(self):
+		print "Sphere %s" %(self.name)
+		print "Radius %d" %(self.radius)
+		print "Colour",
+		print self.colour
+		print "Position ",
+		print self.pos
+
+```
+
+--
+
+## [Test](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Aggregation/SphereTest.py)
+
+```python
+#!/usr/bin/python
+
+from Sphere import Point3,Colour,Sphere
+
+
+#Pos, colour, radius,name
+s1=Sphere(Point3(3,0,0),Colour(1,0,0,1),2,"Sphere1")
+s1.Print()
+
+p1=Point3(3,4,5)
+c1=Colour(1,1,1,1)
+s2=Sphere(p1,c1,12,"New")
+s2.Print()
+
+
+s3=Sphere(Point3(3,0,2),Colour(1,0,1,1),2,"Sphere2")
+s3.Print()
+```
+
+```bash
+./SphereTest.py
+Sphere Sphere1
+Radius 2
+Colour [1.000000,0.000000,0.000000,1.000000]
+Position  [3.000000,0.000000,0]
+Sphere New
+Radius 12
+Colour [1.000000,1.000000,1.000000,1.000000]
+Position  [3.000000,4.000000,5]
+Sphere Sphere2
+Radius 2
+Colour [1.000000,0.000000,1.000000,1.000000]
+Position  [3.000000,0.000000,2]
+```
+
+--
+
+## Inheritance
+
+- in python inheritance is generated by passing in the parent class(es) to the child class
+- This will allow all the base class functions to be accessed or override them if defined in the child
+- The first example shows a basic inheritance
+
+--
+
+## [example](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Inheritance/BasicInheritance.py)
+<div class="stretch">
+<iframe src="inherit.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+## [over ride](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Inheritance/OverrideInheritance.py)
+<div class="stretch">
+<iframe src="inherit2.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+## [over ride constructor](https://github.com/NCCA/DemoPythonCode/blob/master/Classes/Inheritance/InheritCtor.py)
+<div class="stretch">
+<iframe src="inherit3.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+---
+
+## References
+
+- [http://vt100.net/docs/tp83/chapter5.html](http://vt100.net/docs/tp83/chapter5.html)
+- [http://www.artima.com/weblogs/viewpost.jsp?thread=4829](http://www.artima.com/weblogs/viewpost.jsp?thread=4829)
+- [http://www.tutorialspoint.com/python/python_variable_types.htm](http://www.tutorialspoint.com/python/python_variable_types.htm)
+
+
+--
+
+## References
+
+- [http://en.wikipedia.org/wiki/Environment_variable](http://en.wikipedia.org/wiki/Environment_variable)
+- [http://en.wikipedia.org/wiki/Main_function_(programming)](http://en.wikipedia.org/wiki/Main_function_(programming))
+- [http://docs.python.org/library/shutil.html](http://docs.python.org/library/shutil.html)
+- [http://www.devshed.com/c/a/Python/String-Manipulation/](http://www.devshed.com/c/a/Python/String-Manipulation/)
+- [http://docs.python.org/library/string.html](http://docs.python.org/library/string.html)
+- [http://www.rafekettler.com/magicmethods.html](http://www.rafekettler.com/magicmethods.html)
+
