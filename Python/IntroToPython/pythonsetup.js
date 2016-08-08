@@ -13,7 +13,7 @@ function addCodeMirror(textID){
 
 
   });
-  editor.setSize(800, 100);
+  editor.setSize(800, 250);
 
 }
 
