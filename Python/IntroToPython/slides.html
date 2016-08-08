@@ -20,31 +20,37 @@
     <script src="/jmacey/js/reveal.js/lib/js/head.min.js"></script>
     <script src="/jmacey/js/reveal.js/js/reveal.js"></script>
 <style type="text/css">
-#left {
+#mySlideLeft {
   left:-8.33%;
   text-align: left;
   float: left;
   width:50%;
   z-index:-10;
+  border : 0px;
 }
 
-#right {
+#mySlideRight {
   left:31.25%;
   top: 75px;
   float: right;
   text-align: left;
   z-index:-10;
   width:50%;
+  border : 0px;
+
 }
+.reveal section img { background:none; border:none; box-shadow:none; }
+
 }
 </style>
-    <script>
+
+<script>
 
     Reveal.initialize({
                         controls: true,
                         progress: true,
                         history: true,
-                        center: true,
+                        center: false,
                         math: {
                         mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
                         config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html

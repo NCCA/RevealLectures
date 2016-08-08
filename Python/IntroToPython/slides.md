@@ -4,17 +4,18 @@ jmacey@bournemouth.ac.uk
 
 ---
 
-# Python
+## Python
   - python is a very flexible programming language, it can be used in a number of different ways.
   - Most of our animation packages allow for embedded python scripting
   - We can also write complex programs which run stand alone, and if written correctly can run on all operating systems
 
-    
 
 ---
 
 
+
 ##Hello World
+
 <div class="stretch">
 <iframe src="helloWorldPy.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
 </div>
@@ -301,7 +302,7 @@ def       for       lambda    try
 
 --
 
-# Selection
+## Selection
 
 - selections can be embedded to create quite complex hierarchies of “questions”
 - This can sometimes make reading code and maintenance hard especially with the python white space rules as code quite quickly becomes complex to read
@@ -309,7 +310,7 @@ def       for       lambda    try
 
 --
 
-#iteration
+## iteration
 
 - iteration is the ability to repeat sections of code 
 - python has two main looping constructs 
@@ -374,7 +375,7 @@ for(float y=-10.0f; y<10.0f; ++y)
 
 --
 
-#[A 'pythonic' loop](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/Loop2.py)
+## [A 'pythonic' loop](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/Loop2.py)
 
 <div class="stretch">
 <iframe src="altloop.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
@@ -382,7 +383,7 @@ for(float y=-10.0f; y<10.0f; ++y)
 
 ---
 
-#Built In Functions
+## Built In Functions
 <div class="stretch">
 <iframe src="https://docs.python.org/2/library/functions.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
 </div>
@@ -437,15 +438,397 @@ for(float y=-10.0f; y<10.0f; ++y)
 
 --
 
-# Example
+## Example
 
-<div id="left" widht=20%>
+<div id="mySlideLeft" widht=60%>
 ![Alternage text](images/list.png)
 </div>    
-<div id="right" width=80%><small>
+<div id="mySlideRight" width=80%><small>
   <p data-markdown> - If we wish to rename every file in the tree opposite in a GUI we would have to click on every file and type the new name </p>
   <p data-markdown> - Some Operating Systems allow the automation of GUI tasks but this is still time consuming. </p>
   <p data-markdown> - The answer in most cases is to use another GUI program or to write a script </p>
   <p data-markdown> - Most scripting languages let us access the underlying os commands to do this </p>
 </small>
 </div>
+
+--
+
+## The Shell
+- In windows we can access the command prompt (shell) by typing cmd in the start menu
+- In linux we can open a shell by clicking on the shell icon (but if you a real linux user there will be one open all the time!)
+- We can then start typing commands, however windows and Unix have different commands for the same action
+
+--
+
+## Shell Commands
+
+| <small/>Command's Purpose                                         | <small/>MS-DOS      | <small/>Linux       | <small/>Basic Linux Example                  |
+|-----------------------------------------------------------|-------------|-------------|--------------------------------------|
+|<small/> Copies files                                              |<small/> copy        |<small/> cp          |<small/> cp thisfile.txt /home/thisdirectory  |
+|<small/> Moves files                                               |<small/> move        |<small/> mv          |<small/> mv thisfile.txt /home/thisdirectory  |
+|<small/> List files                                                |<small/> dir         |<small/> ls          |<small/> ls                                   |
+|<small/> Clears screen                                             |<small/> cls         |<small/> cls         |<small/> clear                                |
+|<small/> Deletes files                                             |<small/> del         |<small/> rm          |<small/> rm thisFile.txt                      |
+|<small/> Finds a string of text in a file                          |<small/> find        |<small/> grep        |<small/> grep ImageName *.txt                 |
+|<small/> Creates a directory                                       |<small/> mkdir       |<small/> mkdir       |<small/> mkdir images                         |
+
+--
+
+## Shell Commands
+
+| <small/>Command's Purpose                                         | <small/>MS-DOS      | <small/>Linux       | <small/>Basic Linux Example                  |
+|-----------------------------------------------------------|-------------|-------------|--------------------------------------|
+|<small/> View a file (in shell)                                    |<small/> more        |<small/> less        |<small/> more text.txt (can use less as well) |
+|<small/> Renames a file                                            |<small/> ren         |<small/> mv          |<small/> mv this.txt that.txt                 |
+|<small/> Displays your location in the file system                 |<small/> chdir       |<small/> pwd         |<small/> pwd                                  |
+|<small/> Changes directories with a specified path (absolute path) |<small/> cd pathname |<small/> cd pathname |<small/> cd /directory/directory              |
+|<small/> Changes directories with a relative path                  |<small/> cd ..       |<small/> cd ..       |<small/> cd ../images/                        |
+
+
+--
+
+## Environment Variables
+- When we open a shell we are placed in our home directory 
+- This place is stored in an Environment variable called
+  - $HOME on unix and mac
+  - %HOMEPATH% on windows
+
+```bash
+echo $HOME
+echo %HOMEPATH%
+
+/Users/jmacey
+\Users\jmacey
+```
+
+--
+
+## Environment Variables
+- Environment variables are global system variables available to all processes (i.e. programs)
+- Most operating systems have a number of default values set which programs can query to set the way things operate.
+- Users can also se their own environment variables to customise how things work.
+- It is not uncommon for software packages to install their own environment variables when the program is installed.
+
+--
+
+## Environment Variables
+- The PATH environment variable allows us to set a directory where the OS will look for scripts and programs
+- We can add a local directory to our system which contains user scripts which can be executed by the user
+- The configuration is different for both Windows and Unix
+
+--
+
+## Unix Environment variables
+
+- The default shell used in the linux studios is the bash shell (Bourne again Shell)
+- To set environment variable in this shell we use a file called .bashrc which is hidden in the home directory
+- if you type gedit ~/.bashrc you can access it 
+
+```bash
+export PATH=$PATH:$HOME/scripts
+```
+- if you re-open the shell this will be made permanent
+- Now any program placed in this directory may be found and executed
+
+--
+
+## Windows Environment Variables
+
+- Setting environment variables in windows is different from Unix as we have to use the GUI
+- In our studios we can access them from the control panel and students have admin rights to do so
+- The following panels show the way to do this
+
+--
+
+## Windows Environment Variables
+
+<div id="mySlideLeft"   >
+![Alternage text](images/windowsenv.png)
+</div>    
+<div id="mySlideRight">
+  <p data-markdown> - Select the system variable called Path </p>
+  <p data-markdown> - Click on the edit button and the following dialog will be displayed </p>
+</div>
+
+
+--
+
+## Windows Environment Variables
+
+![Alternage text](images/winedit.png)
+- At the end of the Variable value line add the following
+
+``` bash
+;%HOMEDRIVE%%HOMEPATH%scripts
+```
+
+- The ; is a separator for the different values
+
+--
+
+## The scripts directory
+
+- Now we have told the system to look in the scripts directory for any scripts to run we need to create this directory
+- To do this in the console we do the following where the mkdir command makes a directory
+
+```bash
+// Windows
+cd %HOMEPATH%
+mkdir scripts
+
+// linux
+cd
+mkdir scripts
+```
+
+--
+
+## testing
+
+```python
+#!/usr/bin/python
+
+print 'this is working'
+```
+
+- Type the above in an editor (or your choice) and save it in the scripts directory as hello.py
+- In unix issue the following command in the same directory
+
+```bash
+chmod 777 hello.py
+```
+
+- now from any directory you should be able to type hello.py to run the script 
+
+--
+
+## [os.environment](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/env.py)
+
+- These need to be run on a machine and not online 
+
+``` python
+#!/usr/bin/python
+import os
+
+for env in os.environ :
+	print "Variable = %s \nValue = %s"%(env, os.environ.get(env))
+```
+
+``` python
+#!/usr/bin/python
+import os
+
+if ( os.environ.get("PROJECTDIR") == "/tmp") :
+	print "project ok"
+else :
+	print "project not ok"
+```
+
+--
+
+
+## The main function
+
+- The main function is a special function for most programming languages 
+- It is the first function to be executed and is the entry point for most programs
+- The main function is usually passed a set of global system variables called arguments
+- These are available through the life of the program and are a good way of passing values to a program
+
+--
+
+
+## Python main
+
+
+``` python
+#!/usr/bin/python
+import sys
+
+def foo(argv=None):
+	print "in foo function"
+	print "my name is ",__name__
+
+
+
+if __name__ == "__main__":
+    sys.exit(foo())
+
+```
+
+```python
+#!/usr/bin/python
+import sys
+import foo
+
+def main(argv=None):
+	print "in main function"
+	print __name__
+	foo.foo()
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+--
+
+## Command Line arguments
+
+- When a program is executed form the command line the whole line typed is passed to the program using the variable argv
+- argv is a text string array split based on white space
+- The following program show how we can print these values out
+
+--
+
+
+## [arguments](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/arg.py)
+
+``` python
+#!/usr/bin/python
+import sys
+
+def main(argv=None):
+	if argv is None:
+		argv = sys.argv
+	for args in argv :
+		print args
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+```
+
+``` bash
+./arg.py hello this is a command line -f -a 1 2 3
+hello 
+this 
+is 
+a 
+command 
+line 
+-f 
+-a 
+1 
+2 
+3
+
+```
+
+--
+
+## getopt
+- The getopt function is used to process a list of arguments in the form 
+- -l or -vfx will be split into -v -f -x
+- -f [optional argument]
+- --help (know as a long option)
+- The programmer passes a list of these options and the getopt function will split them (any additional command line values will be ignored)
+
+
+--
+
+## [getopt](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/getopts.py)
+
+```python
+
+#!/usr/bin/python
+
+
+import  getopt, sys
+
+def usage() :
+	print "to use the program pass -l for long mode"
+	print "-f [name] for file mode"
+
+class Usage(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+        print "Unknown Option\n\n"
+        usage()
+
+def main(argv=None):
+	if argv is None:
+		argv = sys.argv
+	# process the command line options
+	try:
+		try:
+			opts, args = getopt.getopt(argv[1:], "hlf:s", ["help","long","file=","short"])
+		except getopt.error, msg:
+			raise Usage(msg)
+    	except Usage, err:
+			print >>sys.stderr, err.msg
+			print >>sys.stderr, "for help use --help"
+			return 2
+
+	for opt, arg in opts:
+		if opt in ("-l", "--long"):
+			print "long mode"
+		elif opt in ("-h","--help") :
+			usage()
+			return
+		elif opt in ("-f","--file") :
+			print "File Mode name passed ",arg
+		elif opt in ("-s","--short") :
+			print "short"
+	print "Now in Main Program"
+
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+--
+
+## The string data type
+- Python has a built in string data type which allows us to manipulate text
+- Python has the ability to handle both ASCII and Unicode string. 
+- For all the examples we are going to work with we will be using only ASCII strings
+- The following example shows some basic string manipulation
+
+--
+
+## [demo](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/String1.py)
+
+<div class="stretch">
+
+<iframe src="exr.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+## Format Specifiers
+- In the previous example we used the % format specifier to add to a text string the numeric value for the length.
+- This is similar to the C syntax for printing values.
+- The table on the next page shows the available specifiers 
+
+--
+
+## Format Specifiers
+
+|<small/>Format String	|<small/>Meaning	                                | <small/>Data Type       |
+|---------------|-----------------------------------------|-----------------|
+|<small/> ```%d``` 	          | <small/>Integer Decimal	                        | <small/>int             |
+| <small/>```%o```            | <small/>Octal Decimal	                          | <small/>int             |
+|<small/> ```%x```	          | <small/>Hexadecimal 	                          | <small/>int             |
+|<small/> ```%f	```           | <small/>Floating Point (Decimal Notation)	      | <small/>float           |
+| <small/>```%e``` 	          | <small/>Floating Point (1.E notation)	          | <small/>float           |
+| <small/>```%c```            | <small/>First Character or argument is printed	| <small/>char            |
+|<small/> ```%s```	          | <small/>Argument is taken to be a string	      | <small/>string          |
+|<small/> ```%r```	          | <small/>convert argument to python object	      | <small/>any python type |
+
+--
+
+## [format](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/FormatString.py)
+
+<div class="stretch">
+
+<iframe src="format.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+## [Accessing the Filesystem](https://docs.python.org/2/library/os.html#module-os)
+- The python os module contains a number of functions which allow us to access the file system
+- This module allows us to create files and directories
+- Change directories
+- List the contents of a directory
+- and much more 
