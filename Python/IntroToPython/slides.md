@@ -1,6 +1,8 @@
-#Introduction to Python
-Jon Macey
-jmacey@bournemouth.ac.uk
+# Introduction to Python
+
+<p/>Jon Macey <br/>
+
+<p/>jmacey@bournemouth.ac.uk
 
 ---
 

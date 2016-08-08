@@ -58,6 +58,27 @@
                         mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
                         config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
                         },
+            menu: {
+					markers: true,
+					openSlideNumber: true,
+					themes: [
+						{ name: 'Black', theme: '/jmacey/js/reveal.js/css/theme/black.css' },
+						{ name: 'White', theme: '/jmacey/js/reveal.js/css/theme/white.css' },
+						{ name: 'League', theme: '/jmacey/js/reveal.js/css/theme/league.css' },
+						{ name: 'Sky', theme: '/jmacey/js/reveal.js/css/theme/sky.css' },
+						{ name: 'Beige', theme: '/jmacey/js/reveal.js/css/theme/beige.css' },
+						{ name: 'Simple', theme: '/jmacey/js/reveal.js/css/theme/simple.css' },
+						{ name: 'Serif', theme: '/jmacey/js/reveal.js/css/theme/serif.css' },
+						{ name: 'Blood', theme: '/jmacey/js/reveal.js/css/theme/blood.css' },
+						{ name: 'Night', theme: '/jmacey/js/reveal.js/css/theme/night.css' },
+						{ name: 'Moon', theme: '/jmacey/js/reveal.js/css/theme/moon.css' },
+						{ name: 'Solarized', theme: '/jmacey/js/reveal.js/css/theme/solarized.css' }
+			        ],
+			        custom: [
+			            { title: 'Custom', icon: '<i class="fa fa-bookmark">', src: 'links.html' },
+			        ]
+				},
+            
             // Optional libraries used to extend on reveal.js
             dependencies: [
                             { src: '/jmacey//js/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -65,7 +86,9 @@
                             { src: '/jmacey//js/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                             { src: '/jmacey//js/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                             { src: '/jmacey//js/reveal.js/plugin/notes/notes.js' },
-                            { src: '/jmacey//js/reveal.js/plugin/math/math.js', async: true }
+                            { src: '/jmacey//js/reveal.js/plugin/math/math.js', async: true },
+                            { src: '/jmacey//js/reveal.js/plugin/menu/menu.js' }
+
                             ]
     });
     Reveal.addEventListener( 'slidechanged', function( event ) {
