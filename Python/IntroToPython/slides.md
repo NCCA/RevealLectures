@@ -826,9 +826,268 @@ if __name__ == "__main__":
 
 --
 
-## [Accessing the Filesystem](https://docs.python.org/2/library/os.html#module-os)
-- The python os module contains a number of functions which allow us to access the file system
+## Accessing the Filesystem
+- The python [os module](https://docs.python.org/2/library/os.html#module-os) contains a number of functions which allow us to access the file system
 - This module allows us to create files and directories
 - Change directories
 - List the contents of a directory
 - and much more 
+
+--
+
+## [Accessing the filesystem](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/OS.py)
+
+```python
+#!/usr/bin/python
+
+import os
+# get our current directory
+CWD = os.getcwd()
+print CWD
+# make a directory
+os.mkdir("TestDir")
+# change to the new directory
+os.chdir("TestDir")
+NewDir = os.getcwd()
+print NewDir
+print os.listdir(CWD)
+# change back to CWD 
+os.chdir(CWD)
+# remove the dir we made
+os.rmdir("TestDir")
+print os.listdir(CWD)
+```
+
+--
+
+## Listing Files in a directory
+
+- The os.listdir() function will return a list of all the files in the current directory
+- If we need to identify only a certain type of file we need search the string for the type we are looking for
+- The following example identifies only exr files based on the .exr extension
+
+--
+
+## [os.listdir()](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/ListEXR.py)
+
+```python
+#!/usr/bin/python
+
+import os
+
+Files=os.listdir(".")
+
+for file in Files :
+	if file.endswith(".exr") :
+		print file
+```
+
+--
+
+## [Rename.py](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/Rename.py)
+- The following script uses the previous examples to search for files in the current directory beginning with “name”
+- It will then rename the files with the name passed in with the 2nd argument
+
+--
+
+## [Rename.py](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/Rename.py)
+
+```python
+#!/usr/bin/python
+
+import os
+import shutil
+import sys
+
+def Usage() :
+	print "Rename OldName NewName"
+
+def main(argv=None):
+# check to see if we have enough arguments
+	if len(sys.argv) !=3 :
+		Usage()
+	else :
+		# get the old and new file names
+		OldName=sys.argv[1]
+		NewName=sys.argv[2]
+		# get the files in the current directory
+		Files=os.listdir(".")
+		# for each file
+		for file in Files :
+			# see if it starts with the old name
+			if file.startswith(OldName) :
+				# make a copy of the old file name
+				oldfile=file;
+				# now we break down the string so we can
+				# build the new file name
+				file=file.split(".")
+				file[0]=NewName
+				file="%s.%s.%s" %(file[0],file[1],file[2])
+				# finally we rename the file (using move)
+				shutil.move(oldfile,file)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+--
+
+## [shutil](https://docs.python.org/2/library/shutil.html#module-shutil)
+- The shutil module offers a number of high-level operations on files and collections of files.
+- As different operating systems use different commands this is a good way of doing operating system independent operations
+- This allows us to write scripts which will work on all operating systems
+
+--
+
+##  A More Advanced example
+
+- The following example allows us to reformat files structured like Name.xxx.ext
+- It has the option to resize the padding .xxx. values to any user specified length (default 4)
+- To filter file names so only certain files are converted
+- To rename the file as part of the conversion
+
+--
+
+## [repad.py](https://github.com/NCCA/DemoPythonCode/blob/master/Basic/repad.py)
+
+```python
+#!/usr/bin/python
+from os import *
+from os.path import *
+import shutil
+
+import os, commands, getopt, sys
+
+def usage() :
+	print "**************************************************************************"
+	print "repad.py re-number file sequences"
+	print "Version 1.0 by jmacey@bmth.ac.uk"
+	print "**************************************************************************"
+	print "At present it only works for files of the format Name.###.ext\n"
+	print "The script will process all files it finds in the current directory "
+	print "If only certain files are to be processed use the -f Filter Option"
+	print "\nOptions :\n"
+	print "-p --pad set the pad level e.g. -p 9 will give the output Example.000000001.tiff"
+	print "-f --filter [\"filter\"] only process files containing the text \"filter\""
+	print "-r --rename [\"new name\"] rename the file as well\n"
+	print "\nThis works on the whole file name so for example :\n"
+	print "repad.py -p 5 -f tiff would search for all tiff files"
+	print "repad.py -p 6 -f AOPass would search for files containing the text AOPass\""
+	print "\n-h --help print this help\n"
+
+class Usage(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+        print "Unknown Option"
+        usage()
+
+def main(argv=None):
+	if argv is None:
+		argv = sys.argv
+	# process the command line options
+	try:
+		try:
+			opts, args = getopt.getopt(argv[1:], "hp:f:r:", ["help","pad=","filter=","rename="])
+		except getopt.error, msg:
+			raise Usage(msg)
+    	except Usage, err:
+			print >>sys.stderr, err.msg
+			print >>sys.stderr, "for help use --help"
+			return 2
+	# default file pad is 4 i.e. .0001.
+	PAD=4
+	# by default try and process all files in the directory
+	FILTER=False
+	# by default dont rename the file as well
+	RENAME=False
+	RenameString=[]
+	# the string to contain the filter text
+	FiltString=[]
+	for opt, arg in opts:
+		# set the padding value converting from the command line string to an int
+		if opt in ("-p", "--pad"):
+			PAD=int(arg)
+		elif opt in ("-h","--help") :
+			usage()
+			return
+		# find the filter string
+		elif opt in ("-f","--filter") :
+			FILTER=True
+			FiltString=arg
+		elif opt in ("-r","--rename") :
+			RENAME=True
+			RenameString=arg
+
+
+	# ok this is cool (try doing it in C++) we create a string containing our format specifier
+	# i.e. %09d (using PAD as the variable to specify the numeric value)
+	# this is then used later to pass the value we want for the number of the file
+	# this works as Python evaluates as it goes (interprets) the string, also note to use a % in the
+	# string we need to use %% (a la C)
+
+	str="%%0%dd" %(PAD)
+	# get all the files in the current directory
+	FileNames=listdir(".")
+	# now loop through all the files
+	ConvCount=0
+	for Files in FileNames :
+		# split the file name into sections
+		name=Files.split(".")
+		# if filter option has been set see if it is in the string
+		if(FILTER== True) :
+			if(Files.rfind(FiltString) == -1) :
+				continue
+
+		# if we have 3 elements to the filename (not the best check as it could be wrong)
+		if len(name) ==3 :
+			if(RENAME == True) :
+				name[0]=RenameString
+			#build the new file name with the padding
+			outputname=name[0]+"."+str %(int(name[1]))+"."+name[2]
+			# this should be portable over different os's but it basically calls the move / mv command
+			# to copy the file to the new name
+			shutil.move(Files,outputname)
+			ConvCount+=1
+	print "Files Converted ",ConvCount
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+
+```
+
+---
+
+## Files
+- One of the simplest way of communicating between different packages and different programs is by the use of text files.
+- Reading and writing files in python is very simple and allows us to very quickly output elements from one software package to another in an easily readable hence debuggable way.
+
+--
+
+## Files
+
+<img src="images/file.png" alt="file.png" width=40%>
+
+--
+
+## Stream I/O
+
+- When a file is opened a file descriptor is returned and this file descriptor is used for each subsequent I/O operation, when any operation is carried out on the file descriptor its is known as a stream.
+- When a stream is opened the stream object created is used for all subsequent file operations not the file name.
+
+--
+
+## [The open function](https://docs.python.org/2/library/functions.html#open)
+
+```python
+# open a file for reading
+FILE=open('test.txt','r')
+
+# open a file for writing
+FILE=open('text.txt',''w')
+```
+- The open function takes two parameters
+  - The fist is a String for the name of the file to open
+  - The 2nd  is the open mode 'r' for reading from a file 'w' for writing to a file
