@@ -240,7 +240,7 @@ g++ -g -Wall -std=c++11 HelloWorld.cpp -o HelloWorld
 - clang++ is a modern C++ compiler based on the llvm architecture.
 - It has the best error reporting and diagnostics of the two compilers
 - both now fully support c++ 11 and some of C++ 14
-- some ABI elements are compatible however mixing both compilers is usually problematic 
+- some [ABI](https://en.wikipedia.org/wiki/Application_binary_interface) elements are compatible however mixing both compilers is usually problematic 
 - However this is also true of different version of the same compiler.
   - On mac clang is default, however some support is missing (such as OpenMP)
 
@@ -478,8 +478,4 @@ make
 - Parsons, David. “Object Oriented Programming with C++” Thomson Learning; 2nd edition 8 Nov 2000
 - Priess B. “Data Structures and Algorithms with Object-Oriented Design Patterns in C++”  Wiley 1998
 - Eckel B.  “Thinking in C++, 2nd ed. Volume 1”  Prentice Hall 2000
-
---
-
-#Links
 
