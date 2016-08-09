@@ -3,7 +3,6 @@
 Teaching Team :
 <p/><b>Xiaosong Yang</b> xyang@bournemouth.ac.uk (Unit Leader)
 <p/><b>Jon Macey</b> jmacy@bournemouth.ac.uk
-<p/><b>Hongchuan Yu</b> hyu@bournemouth.ac.uk
 <p/><b>Richard Southern</b> rsouthern@bournemouth.ac.uk
 
 ---
