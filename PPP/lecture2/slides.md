@@ -579,3 +579,159 @@ $./div
 4/0 73832
 0/4 0
 ```
+
+--
+
+## The % (modulus) Operator
+- The remainder operator (%) returns the integer remainder of the result of dividing the first operand with the second
+- For example the value of ```7 % 2 is 1 ```
+- The magnitude of m % n must always be lest than the division n
+
+<image src='images/mod.png' style='width:70%;height:auto;'></br>
+
+--
+
+## [example](https://github.com/NCCA/PPPLectureCode/blob/master/Lecture2/modulus.c)
+
+```c 
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	printf("3 %% 5=%d\n",3%5);
+	printf("5 %% 3=%d\n",5%3);
+	printf("4 %% 5=%d\n",4%5);
+	printf("5 %% 4=%d\n",5%4);
+	printf("5 %% 5=%d\n",5%5);
+	printf("15 %% 5=%d\n",15%5);
+	printf("6 %% 5=%d\n",6%5);
+	printf("15 %% 6=%d\n",15%6);
+	printf("7 %% 5=%d\n",7%5);
+	printf("15 %% -7=%d\n",15%-7);
+	printf("8 %% 5=%d\n",8%5);
+	printf("15 %% 0=%d\n",15%0);
+
+	return EXIT_SUCCESS;
+}
+```
+
+```
+$clang -g -Wall modulus.c -o modulus
+modulus.c:17:26: warning: remainder by zero is undefined [-Wdivision-by-zero]
+        printf("15 %% 0=%d\n",15%0);
+                                ^~
+1 warning generated.
+$./modulus
+3 % 5=3
+5 % 3=2
+4 % 5=4
+5 % 4=1
+5 % 5=0
+15 % 5=0
+6 % 5=1
+15 % 6=3
+7 % 5=2
+15 % -7=1
+8 % 5=3
+15 % 0=73832
+```
+
+--
+
+## Data type of an expression
+- There are certain rules to define the results of mixing data types
+- For example
+```c
+int a=10;
+int b=10;
+int c;
+c=a+b; //will result in an integer value
+```
+
+- However if we mix the types we will get different results depending upon the receiving variables data type
+
+```
+double x;
+int n;
+x=9*0.5; // will result in x=4.5
+n=9*0.5; // will result in n=4
+```
+
+--
+
+## [Expressions with Multiple Operators](https://en.wikipedia.org/wiki/Order_of_operations)
+- There are rules as to how expressions are evaluated
+- Parentheses Rule 
+  - All expressions in parentheses must be evaluated separately. 
+  - Nested parenthesised expressions must be evaluated from the inside out, with the innermost expression evaluated first.
+- Operator precedence rule : 
+  - Operators in the same expression are evaluated in the following order.
+```
+unary +, -    first
+*, /, %       next
+binary +,-    last
+```
+
+--
+
+## [Expressions with Multiple Operators](https://en.wikipedia.org/wiki/Order_of_operations)
+- Associativity Rule : Unary operators in the same sub-expression and at the same precedence levels (such as + and -) are evaluated right to left. 
+- Binary operators in the same sub-expression and the same precedence level (such as + and -) are evaluated left to right.
+- To help avoid problems with the order of evaluation it is best to use parenthesis
+
+```
+x * y * z + a / b -c * d;
+
+can be written
+
+(x * y * z) + (a / b) - (c * d);
+```
+
+--
+
+## <small>Mathematical Formulas as C/C++ expressions </small>
+
+|Mathematical Formula    | C Expression      |
+|------------------------|-------------------|
+| $$  b^2-4ac $$         |  ```(b*b)-4*a*c```|
+| $$ a+b-c  $$           |  ``` a+b-c```     |
+| $$ \frac{a+b}{c+d} $$  | ```(a+b)/(c+d)``` |
+| $$ \frac{1}{1+x^2} $$  | ```1/(1+x*x)```   |
+| $$ a \times -(b+c) $$  | ``` a* -(b+c)```  |
+
+--
+
+## Powers
+- note that most programming languages don't have the ability to express powers such as $ x^2 $
+- in C/C++ we can use ```x*x``` for a square and ```x*x*x``` for a cube.
+- there is a generic [ pow function](http://www.cplusplus.com/reference/cmath/pow/) ```a=pow(x,5);``` 
+- in python we can also use the ```**``` operator such as ``` a=x**5 ```
+- for more maths functions see [``` #include <math.h>```](http://www.cplusplus.com/reference/cmath/)
+
+---
+
+
+## Further reading
+- [http://en.wikipedia.org/wiki/Floating_point](http://en.wikipedia.org/wiki/Floating_point)
+- [http://en.wikipedia.org/wiki/C_syntax](http://en.wikipedia.org/wiki/C_syntax)
+- [https://en.wikipedia.org/wiki/C_mathematical_functions](https://en.wikipedia.org/wiki/C_mathematical_functions)
+- [https://en.wikibooks.org/wiki/C_Programming/Simple_math](https://en.wikibooks.org/wiki/C_Programming/Simple_math)
+- [http://www.sanfoundry.com/c-programming-examples-mathematical-functions/](http://www.sanfoundry.com/c-programming-examples-mathematical-functions/)
+- [http://hplgit.github.io/primer.html/doc/pub/half/book.pdf](http://hplgit.github.io/primer.html/doc/pub/half/book.pdf)
+- [http://numerical.recipes/](http://numerical.recipes/)
+
+--
+
+## References
+- Cornelia M. Yoder and Marilyn L. Schrag. 1978. Nassi-Shneiderman charts an alternative to flowcharts for design. SIGSOFT Softw. Eng. Notes 3, 5 (January 1978), 79-86.
+- I. Nassi and B. Shneiderman. 1973. Flowchart techniques for structured programming. SIGPLAN Not. 8, 8 (August 1973), 12-26.
+- Anderson Eike F.  2002-2005 Computer Programming in ANCI C Lecture notes NCCA
+- Sebesta R. W. 2002, Concepts of Programming Languages, 5th edition, Addison Wesley, International Ed
+
+--
+
+## References
+
+- Daniel D. McCracken and Edwin D. Reilly. 2003. Backus-Naur form (BNF). In Encyclopedia of Computer Science (4th ed.), Anthony Ralston, Edwin D. Reilly, and David Hemmendinger (Eds.). John Wiley and Sons Ltd., Chichester, UK 129-131.
+- Hanly. J. R Koffman E. B. 1999, Problem Solving & Program Design in C, 3rd Edition, Addison Wesley, International Ed
