@@ -702,6 +702,7 @@ can be written
 
 --
 
+
 ## Powers
 - note that most programming languages don't have the ability to express powers such as $ x^2 $
 - in C/C++ we can use ```x*x``` for a square and ```x*x*x``` for a cube.

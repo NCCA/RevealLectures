@@ -4,10 +4,13 @@
     <meta charset="utf-8">
 
     <title>Lecture 2 Structured Programming</title>
+
     <link rel="stylesheet" href="/jmacey/js/reveal.js/css/reveal.css">
-    <link rel="stylesheet" href="/jmacey//js/reveal.js/css/theme/white.css" id="theme">
-    <link rel="stylesheet" href="/jmacey//js/reveal.js/lib/css/zenburn.css">
+    <link rel="stylesheet" href="/jmacey/js/reveal.js/css/theme/white.css" id="theme">
+    <link rel="stylesheet" href="/jmacey/js/reveal.js/lib/css/zenburn.css">
     <link rel="stylesheet" href="jonstyle.css">
+
+
 
     <!-- to print uncomment this and pass ?print-pdf#/ to the command line --->
     <!--- <link rel="stylesheet" href="/jmacey//js/reveal.js/css/print/pdf.css"> -->
@@ -55,7 +58,10 @@
 						{ name: 'Night', theme: '/jmacey/js/reveal.js/css/theme/night.css' },
 						{ name: 'Moon', theme: '/jmacey/js/reveal.js/css/theme/moon.css' },
 						{ name: 'Solarized', theme: '/jmacey/js/reveal.js/css/theme/solarized.css' }
-			        ]
+			        ],
+                    custom: [
+                    { title: 'Code Style', icon: '<i class="fa fa-external-link">', src: 'codeThemes.html' },
+                    ]
 			        
 				},
             // Optional libraries used to extend on reveal.js
@@ -72,6 +78,21 @@
 
                             ]
     });
+
+    function loadCss(name){
+
+        var head = document.getElementsByTagName('head')[0],
+        link = document.createElement('link');
+        link.type = 'text/css';
+        link.rel = 'stylesheet';
+        link.href = "/jmacey/js/reveal.js/lib/css/"+name;
+        head.appendChild(link);
+
+
+            console.log(name);
+            return link;
+        }
+
 
 		</script>
 	</body>
