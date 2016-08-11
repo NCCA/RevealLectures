@@ -28,7 +28,7 @@ for(row=0; row<200; ++row)
 {
   for(col=0; col<200; ++col)
   {
-    drawPixel(col,row,r,g,b);
+    putPixel(col,row,r,g,b);
   }
 }
 
@@ -49,7 +49,7 @@ var canvasData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
 
 
 // That's how you define the value of a pixel //
-function drawPixel (x, y, r, g, b) {
+function putPixel (x, y, r, g, b) {
     var index = (x + y * canvasWidth) * 4;
 
     canvasData.data[index + 0] = r;
@@ -112,7 +112,7 @@ for(row=0; row<200; ++row)
 {
   for(col=0; col<200; ++col)
   {
-    drawPixel(col,row,255,255,255);
+    putPixel(col,row,255,255,255);
   }
 }
   updateCanvas();

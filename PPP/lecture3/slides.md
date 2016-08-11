@@ -854,7 +854,7 @@ for(int y=0; y<HEIGHT; ++y)
 
 --
 
-## example
+## example ([javascript](http://www.w3schools.com/js/))
 
 <div class="stretch">
 <iframe src="loop.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
@@ -869,3 +869,9 @@ for(int y=0; y<HEIGHT; ++y)
 - [https://en.wikipedia.org/wiki/Branch_predication](https://en.wikipedia.org/wiki/Branch_predication)
 - [https://en.wikipedia.org/wiki/Yoda_conditions](https://en.wikipedia.org/wiki/Yoda_conditions)
 - [https://en.wikipedia.org/wiki/Boolean_algebra](https://en.wikipedia.org/wiki/Boolean_algebra)
+
+--
+
+## References
+- Hanly. J. R Koffman E. B. 1999, Problem Solving & Program Design in C, 3rd Edition, Addison Wesley, International Ed
+- Sebesta R. W. 2002, Concepts of Programming Languages, 5th edition, Addison Wesley, International Ed
