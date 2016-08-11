@@ -777,6 +777,90 @@ Total grades 7 average 59.142857
 - However it is some times necessary to execute the loop statements before testing the loop conditions
 - To do this we use the do .. while structure
 
+--
+
+##The do while Statement
+
+- The general form of a do while loop is
+  1. Get a data value.
+  2. If data value isn't in acceptable range go back to step 1
+- For example to print the Fibonacci sequence for n numbers we could use the following code
+
+
+--
+
+
+## [example](https://github.com/NCCA/PPPLectureCode/blob/master/Lecture3/doWhile.c)
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+  printf("enter a number \n");
+  int num;
+  scanf("%d",&num);
+
+  unsigned long int count=0;
+  unsigned long int oldNumber=1;
+  unsigned long int currentNumber=1;
+  unsigned long int nextNumber;
+  printf("%ld ",currentNumber);
+
+  do
+  {
+    printf("%ld ",currentNumber);
+    // calculate the next number by adding the
+    // current number to the old number
+    nextNumber = currentNumber + oldNumber;
+    oldNumber = currentNumber;
+    currentNumber = nextNumber;
+  }while(++count <num);
+
+  printf("\n");
+  return EXIT_SUCCESS;
+}
+```
+
+--
+
+<img src="images/grid.png" width="20%">
+- It is very common to nest loops so that one loop executes within another
+- Consider the grid above
+- To draw this we need to go from left to right on the grid and from the top to the bottom
+- To do this we can use two loops one to do the left to right (X) and one the top to bottom (Y)
+
+--
+
+## nested for
+
+```c
+#define HEIGHT 10 
+#define WIDTH 10 
+int r,g,b;
+// set to red 
+r=255;
+g=0; b=0;
+for(int y=0; y<HEIGHT; ++y) 
+{
+  for(x=0; x<WIDTH; ++x) 
+  {
+    // set the colour at x,y to rgb
+    putPixel(x,y,r,g,b); 
+  } // end for x
+}// end for y
+```
+
+--
+
+## example
+
+<div class="stretch">
+<iframe src="loop.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+
 
 ---
 
