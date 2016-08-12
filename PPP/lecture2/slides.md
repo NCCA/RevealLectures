@@ -459,6 +459,14 @@ A
 
 --
 
+## bytes
+
+<div class="stretch">
+<iframe src="bytes.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
 ##real numbers
 
 - In computing we use floating point data types to represent real numbers (numbers with a fractional part)
