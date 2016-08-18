@@ -875,3 +875,11 @@ for(int y=0; y<HEIGHT; ++y)
 ## References
 - Hanly. J. R Koffman E. B. 1999, Problem Solving & Program Design in C, 3rd Edition, Addison Wesley, International Ed
 - Sebesta R. W. 2002, Concepts of Programming Languages, 5th edition, Addison Wesley, International Ed
+
+---
+
+<H2>My Notes </H2>
+<div class="stretch">
+
+<iframe id="notesFrame" onpageshow="loadNotes();" onload="loadNotes();" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%" ></iframe>
+</div>

@@ -17,16 +17,21 @@
 }
 .result{
     height:150px;
-    width:150px;
+    width:180px;
     font-size : 40px;
     color: black;
     background-color: white;
     text-decoration: none;
-
+}
+.center {
+   
+    display: block;
+    margin: auto;
+    width: 100%;
 }
 </style>
 <H2> Click the bits to set the values </H2>
-<div>
+<div >
   <button class="bit" id="128"  onclick="updateData(this);" value="0">0</button>  
   <button class="bit" id="64"  onclick="updateData(this);" value="0">0</button>  
   <button class="bit" id="32" onclick="updateData(this);" value="0">0</button>  
@@ -35,10 +40,14 @@
   <button class="bit" id="4"  onclick="updateData(this);" value="0">0</button>  
   <button class="bit" id="2"  onclick="updateData(this);" value="0">0</button>  
   <button class="bit" id="1"  onclick="updateData(this);" value="0">0</button>  
-  <button class="result" id="output"  disabled value="0">=0</button>  
+  </div>
+  <div class="center">
+  <button class="result" id="output"  disabled value="0">0</button>  
+  <button class="result" id="hex"  disabled value="0">0x00</button>  
+  <button class="result" id="octal"  disabled value="0">0000</button>  
 
 </div>
-<div>
+<div class="center">
   <button id="clear" onclick="clearButtons();"> clear </button>
   <button id="countUp" onclick="countUp();"> count up </button>
   <button id="countUp" onclick="countDown();"> count down </button>
@@ -69,7 +78,13 @@ function setOutput()
     result+=parseInt(bits[i].value * power);
   }
   
-  document.getElementById("output").innerHTML = "= "+result;
+  document.getElementById("output").innerHTML = result ;
+  var hex= ("00" + result.toString(16)).slice(-2).toUpperCase();
+  document.getElementById("hex").innerHTML= "0x"+hex;
+
+  var octal= ("000" + result.toString(8)).slice(-3).toUpperCase();
+  document.getElementById("octal").innerHTML= "0"+octal;
+
 }
 
 function updateData(id)

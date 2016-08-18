@@ -22,8 +22,16 @@
     color: black;
     background-color: white;
     text-decoration: none;
-
+    display: block;
+    margin: auto;
 }
+.center {
+   
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+
 </style>
 <H2> Click the bits to set the values </H2>
 <div>
@@ -36,9 +44,8 @@
   <button class="bit" id="2"  onclick="updateData(this);" value="0">0</button>  
   <button class="bit" id="1"  onclick="updateData(this);" value="0">0</button>  
   <button class="result" id="output"  disabled value="0">=0</button>  
-
 </div>
-<div>
+<div class="center">
   <button id="clear" onclick="clearButtons();"> clear </button>
   <button id="countUp" onclick="countUp();"> count up </button>
   <button id="countUp" onclick="countDown();"> count down </button>
@@ -76,6 +83,7 @@ function setOutput()
   }
 
   document.getElementById("output").innerHTML = "= "+sign+" "+result;
+
 }
 
 function updateData(id)
