@@ -331,4 +331,10 @@ gcc -g -Wall  HelloWorld.c -o HelloWorld
 
 - Hanley J.R. Koffman E. B. 1999, Problem Solving and Program Design in C, 3rd, Addison Wesley, International Addition
 
+---
 
+<H2>My Notes </H2>
+<div class="stretch">
+
+<iframe id="notesFrame" onpageshow="loadNotes();" onload="loadNotes();" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%" ></iframe>
+</div>
