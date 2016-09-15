@@ -744,3 +744,429 @@ int main()
 
 }
 ```
+
+- for more details see [here](http://en.wikipedia.org/wiki/Data_structure_alignment)
+
+---
+
+# enums
+- In C and old C++ enums essentially convert to integers
+- This means we can compare all enums with each other as they are all of int type
+- This can lead to errors in code as the compiler doesn’t check these
+- C++ 11 introduces strongly typed enums
+
+--
+
+# [enum1.cpp](https://github.com/NCCA/CPP11Demos/blob/master/enum1.cpp) 
+
+```
+enum Mesh {SPHERE,BOX,TORUS};
+enum Shapes {CUBE,CYLINDER,SPHERE}
+
+int main()
+{
+
+}
+
+```
+
+```
+enum1.cpp:4:28: error: redefinition of enumerator 'SPHERE'
+enum Shapes {CUBE,CYLINDER,SPHERE};
+                           ^
+note : previous defenition is here
+enum Mesh {SPHERE,BOX,TORUS};
+           ^
+
+```
+
+--
+
+# [enum2.cpp](https://github.com/NCCA/CPP11Demos/blob/master/enum2.cpp)
+
+```
+#include <iostream>
+
+enum class Mesh {SPHERE,BOX,TORUS};
+enum class Shapes {CUBE,CYLINDER,SPHERE};
+
+int main()
+{
+	Shapes shape=Shapes::CUBE;
+	if( shape == Shapes::CUBE)
+	{
+		std::cout<<"cube\n";
+	}
+}
+```
+
+--
+
+# enum class size
+- By default these values will still be integers
+- We can however change the storage size of the enum to be whatever we want to reduce size etc
+
+--
+
+# [enum3.cpp](https://github.com/NCCA/CPP11Demos/blob/master/enum3.cpp)
+
+- as enum classes are no longer integers we can't use them like C style enums.
+
+```
+#include <iostream>
+
+enum class DIRECTION {UP,DOWN,LEFT,RIGHT};
+
+
+int main()
+{
+	int data[4]={0,1,2,3};
+	std::cout<<data[static_cast<int>(DIRECTION::UP)]<<"\n";
+}
+```
+
+---
+
+# [cstdint](http://en.cppreference.com/w/cpp/header/cstdint)
+
+- One issue with C and C++ has been the lack of standard size for data types
+- This changes for different OS bit size dependant upon architecture
+
+--
+
+# [cstdint.cpp](https://github.com/NCCA/CPP11Demos/blob/master/cstdint.cpp)
+
+```
+#include <cstdint>
+#include <iostream>
+#include <cstdlib>
+
+int main()
+{
+std::int8_t int8;
+std::int16_t int16;
+std::int32_t int32;
+std::int64_t int64;
+std::uint8_t uint8;
+
+std::cout <<"std::int8_t = " <<sizeof(int8)<<"\n";
+std::cout <<"std::int16_t = " <<sizeof(int16)<<"\n";
+std::cout <<"std::int32_t = " <<sizeof(int32)<<"\n";
+std::cout <<"std::int64_t = " <<sizeof(int64)<<"\n";
+std::cout <<"std::uint8_t = " <<sizeof(uint8)<<"\n";
+
+}
+```
+
+```
+std::int8_t = 1
+std::int16_t = 2
+std::int32_t = 4
+std::int64_t = 8
+std::uint8_t = 1
+```
+
+--
+
+#[nullptr](http://en.cppreference.com/w/cpp/language/nullptr)
+
+- We usually use NULL in our programs to indicate something is not set
+- In C++ NULL is #defined to 0 and is not even a pointer type
+- This can lead to weird bugs
+- C++ 11 introduces the nullptr type. It should replace NULL and you should just use it wherever you used to use NULL
+
+--
+
+# [auto](http://en.cppreference.com/w/cpp/language/auto)
+
+- Once the type of the initialiser has been determined, the compiler determines the type that will replace the keyword auto as if using the rules for template argument deduction from a function call.
+- The keyword auto may be accompanied by modifiers, such as const or &, which will participate in the type deduction.
+- In a function declaration, the keyword auto does not perform automatic type detection. It only serves as a part of the trailing return type syntax.
+
+--
+
+# [auto](http://en.cppreference.com/w/cpp/language/auto)
+
+```
+int a=5;
+// can now be
+auto a=5;
+```
+
+- This is not the intended use, more at home with iterators
+
+```
+vector <int> vec;
+// instead of vector<int>::iterator itr;
+auto itr=std::begin(vec);
+```
+
+--
+
+# [for.cpp](https://github.com/NCCA/CPP11Demos/blob/master/for.cpp)
+
+```
+#include <iostream>
+#include <vector>
+
+int main()
+{
+	std::vector <float> v;
+	for(auto i=0.1; i<1.0; i+=0.1)
+		v.push_back(i);
+	for(auto i: v)
+		std::cout<<i<<"\n";
+
+}
+```
+
+--
+
+#[range based for](http://en.cppreference.com/w/cpp/language/range-for)
+- You will notice in the last example I used the new for syntax
+- This is a for each loop similar to an iterator
+- By default we get a const iterator
+- Works the same as BOOST_FOREACH 
+- more on this when we start looking at STL
+
+--
+
+# [constexpr](http://en.cppreference.com/w/cpp/language/constexpr)
+- constexpr allows for computation to now take place at compile time rather than runtime
+- This means that code using this will not need to do the computation at runtime (for example evaluating a cos or sine function on a know value)
+- This could be done with a constant however this can reduce the flexibility of the code 
+
+--
+
+## [constexpr1.cpp](https://github.com/NCCA/CPP11Demos/blob/master/constexpr1.cpp)
+
+```
+#include <iostream>
+#include <cstdlib>
+
+constexpr int multiply (int x, int y)
+{
+    return x * y;
+}
+
+int main()
+{
+	const int val = multiply( 10, 10 );
+	std::cout<<val<<"\n";
+	return EXIT_SUCCESS;
+}
+```
+
+--
+
+#[demo](https://gcc.godbolt.org/)
+
+<div class="stretch">
+<iframe src="https://gcc.godbolt.org/#compilers:!((compiler:g6,options:'-std%3Dc%2B%2B11+-O3',source:'%23include+%3Ciostream%3E%0A%23include+%3Ccstdlib%3E%0A%0Aconstexpr+int+multiply+(int+x,+int+y)%0A%7B%0A++++return+x+*+y%3B%0A%7D%0A%0Aint+main()%0A%7B%0A%09const+int+val+%3D+multiply(+10,+10+)%3B%0A%09std::cout%3C%3Cval%3C%3C%22%5Cn%22%3B%0A%09return+EXIT_SUCCESS%3B%0A%7D')),filterAsm:(colouriseAsm:!t,directives:!t,intel:!t,labels:!t),version:3" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+#constexpr
+
+- A constexpr function is limited as follows
+  - It must consist of single return statement (with a few exceptions)
+  - It can call only other constexpr functions
+  - It can reference only constexpr global variables
+
+--
+
+# constexpr
+- We can also use constexpr instead of macros
+- This can make our code more readable and also has the benefits that we can use the constexpr as a normal function at runtime as well
+
+
+--
+
+# recursion
+
+- recursion is allowed in a constexpr
+- However as we can only have a single return statement in a constexpr we need to use the ternary operator (arithmetic if) 
+- ? [true] : [false]
+- This is show in the following example
+
+--
+
+# [constexpfactorial.cpp](https://github.com/NCCA/CPP11Demos/blob/master/constexpfactorial.cpp)
+
+```
+#include <iostream>
+#include <cstdlib>
+
+constexpr unsigned long int factorial (int n)
+{
+    return n > 0 ? n * factorial( n - 1 ) : 1;
+}
+
+
+int main()
+{
+	const unsigned long int big=factorial(25);
+	int a;
+	std::cout<<"enter a value>";
+	std::cin >>a;
+	std::cout<<"big is "<<big<<" a! is "<<factorial(a)<<"\n";
+
+return EXIT_SUCCESS;
+}
+```
+
+--
+
+#[demo](https://gcc.godbolt.org/)
+
+<div class="stretch">
+<iframe src="https://gcc.godbolt.org/#compilers:!((compiler:g6,options:'-std%3Dc%2B%2B11+-O3',source:'%23include+%3Ciostream%3E%0A%23include+%3Ccstdlib%3E%0A%0Aconstexpr+unsigned+long+int+factorial+(int+n)%0A%7B%0A++++return+n+%3E+0+%3F+n+*+factorial(+n+-+1+)+:+1%3B%0A%7D%0A%0A%0Aint+main()%0A%7B%0A%09const+unsigned+long+int+big%3Dfactorial(25)%3B%0A%09int+a%3B%0A%09std::cout%3C%3C%22enter+a+value%3E%22%3B%0A%09std::cin+%3E%3Ea%3B%0A%09std::cout%3C%3C%22big+is+%22%3C%3Cbig%3C%3C%22+a!!+is+%22%3C%3Cfactorial(a)%3C%3C%22%5Cn%22%3B%0A%0Areturn+EXIT_SUCCESS%3B%0A%7D')),filterAsm:(colouriseAsm:!t,directives:!t,intel:!t,labels:!t),version:3" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+# [String literals](http://en.cppreference.com/w/cpp/language/string_literal)
+- Normal C/C++ allows us to represent strings in the by using the quotes
+- Any special characters including the quotes must be escaped using the backslash
+- C++ 11 introduces the Raw string literal, this is especially good if you want to include shader source in your code
+
+--
+
+# [literal.cpp](https://github.com/NCCA/CPP11Demos/blob/master/literal.cpp)
+
+```
+#include <iostream>
+
+static const std::string shader =
+
+R"DELIM(
+#version 400 core
+// first attribute the vertex values from our VAO
+layout (location = 0) in vec3 inVert;
+// second attribute the UV values from our VAO
+layout (location = 1) in vec2 inUV;
+// we use this to pass the UV values to the frag shader
+out vec2 vertUV;
+void main()
+{
+	// calculate the vertex position
+	gl_Position = vec4(inVert, 1.0);
+	// pass the UV values to the frag shader
+	vertUV=inUV.st;
+}
+)DELIM";
+
+int main()
+{
+  std::cout<<shader<<"\n";
+}
+```
+
+---
+
+#[Lambda Functions](http://en.cppreference.com/w/cpp/language/lambda)
+- Lambda functions are like normal functions but can be inlined in your code
+- They can also be passed to some algorithms
+- Lambdas start with the [] followed by an argument list () 
+- The body of the lambda is then contained in the { }
+- must be ended with a ;
+
+--
+
+# [lambda1.cpp](https://github.com/NCCA/CPP11Demos/blob/master/lambda1.cpp)
+
+```
+#include <iostream>
+#include <cstdlib>
+
+
+int main()
+{
+ auto lambda =[](const char *_s) { std::cout<<"lambda :-"<<_s<<"\n";};
+ 
+ lambda("this is a lambda");
+ lambda("seems to ");
+ lambda("work ok");
+ 
+	return EXIT_SUCCESS;
+}
+```
+
+--
+
+# lambda
+- In the previous example we use auto for the type 
+- This makes this a very simple callable function
+- don’t have to bother about function pointer return type and syntax
+- Not really the usual way of using lambdas but can be quite handy if we need some debug prints etc
+
+--
+
+# watch this 
+
+<div class="stretch">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rcgRY7sOA58" frameborder="0" allowfullscreen></iframe>
+</div>
+
+--
+
+# capture output
+
+- The output of a lambda function can be captured in the [ ] list
+- The variables have to be pre-declared and then passed by reference
+- Comma separated lists can be used for multiple variables as shown in the next example 
+
+--
+
+#[lambda.cpp](https://github.com/NCCA/CPP11Demos/blob/master/lambda.cpp)
+
+```
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+int main()
+{
+	// Create a vector object that contains 10 elements.
+	std::vector<int> v(10);
+	// use iota to fill 
+	std::iota(std::begin(v), std::end(v),0);
+
+  int evenCount = 0;
+  int total=0;
+
+  auto countEvenOdd=[&evenCount,&total] (int n)
+  {
+    std::cout << n;
+
+    if (n % 2 == 0)
+    {
+      std::cout << " is even \n";
+      evenCount++;
+    }
+    else
+    {
+      std::cout << " is odd\n" ;
+    }
+    ++total;
+  };
+
+
+  for_each(std::begin(v), std::end(v),countEvenOdd );
+
+  std::cout << "There are " << evenCount
+  << " even numbers in the vector out of "<<total<<" elements\n";
+
+  }
+```
+
+---
+
+#References
+- http://en.cppreference.com/w/cpp/language/auto
+- http://www.cprogramming.com/c++11/c++11-auto-decltype-return-value-after-function.html
+- http://www.cprogramming.com/c++11/c++11-compile-time-processing-with-constexpr.html
+- http://www.cprogramming.com/c++11/c++11-lambda-closures.html
+

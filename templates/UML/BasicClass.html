@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/jmacey/js/joint.js/joint.min.css" />
+    <script type="text/javascript" src="/jmacey/js/joint.js/lodash.min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/joint.js/backbone-min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/joint.js/joint.min.js"></script>
+    
+    
+
+    <title></title>
+</head>
+
+<body>
+<div class="example">
+	  <div id="paper" class="paper"></div>
+</div><!--end example-->
+
+<style>
+
+</style>
+
+
+<script>
+
+var graph = new joint.dia.Graph();
+
+var paper = new joint.dia.Paper({
+    el: $('#paper'),
+    width: 1024,
+    height: 800,
+    gridSize: 1,
+    model: graph
+});
+
+
+var uml = joint.shapes.uml;
+
+
+var classes = {
+
+                           
+     
+    Vec3: new uml.Class({
+        position: { x:630  , y: 190 },
+        size: { width: 160, height: 100 },
+        name: 'Vec3',
+        attributes: ['+ m_x : float','+ m_y : float','+ m_z : float'],
+        methods: ['+ Vec3()','+ dot() : float','+ cross() : Vec3'],
+       attrs: {
+           // 'rect': { fill: 'white', stroke: 'black', 'follow-scale': true, width: 150, height: 40 }
+          '.uml-class-name-rect' : { fill : '#f2f2f2'},
+          '.uml-class-attrs-rect' : { fill : '#ffffff'},
+          '.uml-class-methods-rect' : { fill : '#ffffff'},
+          
+        }
+
+    }),
+
+   
+  
+
+};
+
+_.each(classes, function(c) { graph.addCell(c); });
+/*
+var relations = [
+    new uml.Generalization({ source: { id: classes.man.id }, target: { id: classes.person.id }}),
+    new uml.Generalization({ source: { id: classes.woman.id }, target: { id: classes.person.id }}),
+    new uml.Implementation({ source: { id: classes.person.id }, target: { id: classes.mammal.id }}),
+    new uml.Aggregation({ source: { id: classes.person.id }, target: { id: classes.address.id }}),
+    new uml.Composition({ source: { id: classes.person.id }, target: { id: classes.bloodgroup.id }})
+];
+
+_.each(relations, function(r) { graph.addCell(r); });
+*/
+</script>
+
+</body>
+
+</html>
