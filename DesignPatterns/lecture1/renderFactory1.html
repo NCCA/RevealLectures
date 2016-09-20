@@ -115,22 +115,35 @@ public:
 </code></pre>
 </div>
 
-<div id="RenderFactory" title="RenderFactory.h">
+<div id="RenderFactory" title="RenderFactory.h/cpp">
 
-<button id="source" type="button">source</button>
 <pre id = "codeBlock"> </pre>
 <script>
 $.ajax({
   url: "code/RenderFactory.h",
   success: function(data) {
-    var code = $("<code id='myCode' class='c++'>" + data + "</code>");
+    var code = $("<code id='myCode' >" + data + "</code>");
     $("#codeBlock").html(code);
   }
 })
 </script>
-
-
 </pre>
+
+<div id="RenderFactory" title="RenderFactory.cpp">
+
+<pre id = "codeBlock2"> </pre>
+<script>
+$.ajax({
+  url: "code/RenderFactory.cpp",
+  success: function(data) {
+    var code = $("<code id='myCode2' >" + data + "</code>");
+    $("#codeBlock2").html(code);
+  }
+})
+</script>
+</pre>
+
+
 </div>
 
 
@@ -235,11 +248,12 @@ $(function() {
     $('#DirectXRenderer').hide();
     $('#RenderFactory').hide();
     hljs.highlightBlock(document.getElementById('codeBlock'));
+    hljs.highlightBlock(document.getElementById('codeBlock2'));
 
 
 });
 
-$("code").each(function (i, e) {
+$("pre").each(function (i, e) {
     hljs.highlightBlock(e);
 });
 
