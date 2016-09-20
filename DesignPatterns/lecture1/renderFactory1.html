@@ -39,9 +39,8 @@ display:none;
 }
 </style>
 
-
-<div id="Renderer" title="Renderer.h">
-<pre><code class="c++"  >
+<script>
+createCodeDiv("Renderer","Renderer.h",`
 #ifndef RENDERER_H
 #define RENDERER_H
 
@@ -63,12 +62,9 @@ public:
 };
 
 #endif
+`);
 
-
-</code></pre>
-
-<div id="OpenGLRenderer" title="OpenGLRenderer.h">
-<pre><code class="c++"  >
+createCodeDiv("OpenGLRenderer","OpenGLRenderer.h",`
 #ifndef OPENGLRENDERER_H
 #define OPENGLRENDERER_H
 #include &lt;iostream&gt;
@@ -82,17 +78,13 @@ public:
   void setViewportSize(int _w, int _h) {;}
   void setCameraPos(float _x, float _y, float _z) {;}
   void setLookAt(float _x, float _y, float _z) {;}
-  void render() {std::cout<<"OpenGL Render\n";}
-  ~OpenGLRenderer(){std::cout<<"OpenGL dtor called\n";}
+  void render() {std::cout<<"OpenGL Render\\n";}
+  ~OpenGLRenderer(){std::cout<<"OpenGL dtor called\\n";}
 };
 
-#endif
+#endif`);
 
-</code></pre>
-</div>
-
-<div id="DirectXRenderer" title="DirectXRenderer.h">
-<pre><code class="c++"  >
+createCodeDiv("DirectXRenderer","DirectXRenderer.h",`
 #ifndef DIRECTXRENDERER_H
 #define DIRECTXRENDERER_H
 #include &lt;iostream&gt;
@@ -106,14 +98,18 @@ public:
   void setViewportSize(int _w, int _h) {;}
   void setCameraPos(float _x, float _y, float _z) {;}
   void setLookAt(float _x, float _y, float _z) {;}
-  void render() {std::cout<<"DirectXRenderer Render\n";}
-  ~DirectXRenderer(){std::cout<<"DirectXRenderer dtor called\n";}
+  void render() {std::cout<<"DirectXRenderer Render\\n";}
+  ~DirectXRenderer(){std::cout<<"DirectXRenderer dtor called\\n";}
 };
 
-#endif
+#endif`);
 
-</code></pre>
-</div>
+createCodeDivFromFile("maincpp", "main.cpp","codeBlock2", "code/RenderFactoryMain.cpp");
+
+
+</script>
+
+
 
 <div id="RenderFactory" title="RenderFactory.h/cpp">
 
@@ -141,8 +137,23 @@ $.ajax({
   }
 })
 </script>
-</pre>
+</div>
 
+
+
+<div id="maincpp" title="main.cpp">
+
+<pre id = "mainCodeBlock"> </pre>
+<script>
+$.ajax({
+  url: "code/RenderFactoryMain.cpp",
+  success: function(data) {
+    var code = $("<code id='myCodemain' >" + data + "</code>");
+    $("#mainCodeBlock").html(code);
+  }
+})
+</script>
+</pre>
 
 </div>
 
@@ -154,7 +165,6 @@ initUML('#paper',1024,800, 'false');
 var w=250;
 var h=100;
 var classes = {
-    text1 :  addText(310,380,'creates',20),
     Factory : createClass('RenderFactory',10,60,w+30,h,[],['+ createRenderer(_type : const std::string ) : Renderer *']),
 
     ConCreator : createClass('OpenGLRenderer',540,340,w,h,[],['+ OpenGLRenderer() : Renderer', '~OpenGLRenderer()']),
@@ -168,6 +178,7 @@ var classes = {
                                                             '+ render()'
                                                             
                                                             ]),
+    main : createRectangle("maincpp",60,200,w/2,h/2,"main.cpp")
 
 
 };
@@ -175,13 +186,16 @@ var classes = {
 var relations = [
     addGeneralization(classes.ConCreator.id,classes.Creator.id),
     addGeneralization(classes.ConCreator2.id,classes.Creator.id),
-    addImplementation(classes.Creator.id,classes.Factory.id)
-
+    addImplementation(classes.Creator.id,classes.Factory.id),
+    addImplementation(classes.main.id,classes.Factory.id)
 ];
 
 
 addToGraph(classes);
 addToGraph(relations);
+
+// These are the names of the cells for clicking on
+var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','RenderFactory','maincpp'];
 
 
 paper.on('cell:pointerclick', 
@@ -190,37 +204,16 @@ paper.on('cell:pointerclick',
     //console.log('cell view ' + cellView.model.get('name') + ' was clicked');
     // get the name
     var name= cellView.model.get('name');
-    if( name == 'Renderer')
+    if( activeCells.indexOf(name) != -1)
     {
         $( function() 
         {
-            $( "#Renderer" ).dialog({width : 'auto'});
+            $( "#"+name ).dialog({width : 'auto'});
         } );
     }
-    else if( name == 'OpenGLRenderer')
-    {
-        $( function() 
-        {
-            $( "#OpenGLRenderer" ).dialog({width : 'auto'});
-        } );
     }
-    else if( name == 'DirectXRenderer')
-    {
-        $( function() 
-        {
-            $( "#DirectXRenderer" ).dialog({width : 'auto'});
-        } );
-    }
-    else if( name == 'RenderFactory')
-    {
-        $( function() 
-        {
-            $( "#RenderFactory" ).dialog({width : 'auto'});
-        } );
-    }
-  
-  }
 );
+
 
 /*
 paper.on('cell:mouseover', function(evt, x, y) { 
@@ -243,13 +236,12 @@ paper.on('cell:mouseover', function(evt, x, y) {
 //use this code to hide code divs on load.
 //Shorthand for $( document ).ready()
 $(function() {
-    $('#Renderer').hide();
-    $('#OpenGLRenderer').hide();
-    $('#DirectXRenderer').hide();
-    $('#RenderFactory').hide();
+    _.each(activeCells,function(name) {
+        $('#'+name).hide();
+    });
     hljs.highlightBlock(document.getElementById('codeBlock'));
     hljs.highlightBlock(document.getElementById('codeBlock2'));
-
+    hljs.highlightBlock(document.getElementById('mainCodeBlock'));
 
 });
 
