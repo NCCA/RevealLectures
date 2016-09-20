@@ -101,15 +101,16 @@ public:
   void render() {std::cout<<"DirectXRenderer Render\\n";}
   ~DirectXRenderer(){std::cout<<"DirectXRenderer dtor called\\n";}
 };
-
 #endif`);
 
-createCodeDivFromFile("maincpp", "main.cpp","codeBlock2", "code/RenderFactoryMain.cpp");
+createCodeDivFromFile("maincpp", "main.cpp","mainCodeBlock", "code/RenderFactoryMain.cpp");
+createCodeDivFromFile("RenderFactory", "RenderFactory.h/cpp","renderfactoryCPP", "code/RenderFactory.cpp");
+createCodeDivFromFile("RenderFactory", "RenderFactory.h/cpp","renderfactoryH", "code/RenderFactory.h");
 
 
 </script>
 
-
+<!--
 
 <div id="RenderFactory" title="RenderFactory.h/cpp">
 
@@ -157,6 +158,7 @@ $.ajax({
 
 </div>
 
+-->
 
 <script>
 
@@ -195,7 +197,7 @@ addToGraph(classes);
 addToGraph(relations);
 
 // These are the names of the cells for clicking on
-var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','RenderFactory','maincpp'];
+var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','maincpp','RenderFactory'];
 
 
 paper.on('cell:pointerclick', 
@@ -210,6 +212,13 @@ paper.on('cell:pointerclick',
         {
             $( "#"+name ).dialog({width : 'auto'});
         } );
+    }
+    if( cellView.model.get('name')=='RenderFactory')
+    {
+       $( function() 
+        {
+            $( "#RenderFactory" ).dialog({width : 'auto'});
+        } ); 
     }
     }
 );
@@ -239,8 +248,8 @@ $(function() {
     _.each(activeCells,function(name) {
         $('#'+name).hide();
     });
-    hljs.highlightBlock(document.getElementById('codeBlock'));
-    hljs.highlightBlock(document.getElementById('codeBlock2'));
+    hljs.highlightBlock(document.getElementById('renderfactoryH'));
+    hljs.highlightBlock(document.getElementById('renderfactoryCPP'));
     hljs.highlightBlock(document.getElementById('mainCodeBlock'));
 
 });
