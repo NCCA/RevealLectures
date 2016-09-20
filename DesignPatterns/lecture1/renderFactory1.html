@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/jmacey/js/joint.js/joint.min.css" />
+    <link rel="stylesheet" type="text/css" href="/jmacey/js/jquery-ui/jquery-ui.min.css" />
+    <script type="text/javascript" src="/jmacey/js/joint.js/lodash.min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/joint.js/backbone-min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/joint.js/joint.min.js"></script>
+    <script type="text/javascript" src="/jmacey/js/joint.js/UMLFunctions.js"></script>
+    <script type="text/javascript" src="/jmacey/js/reveal.js/plugin/highlight/highlight.js"></script>
+    <link rel="stylesheet" href="/jmacey//js/reveal.js/lib/css/zenburn.css">
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+
+<title></title>
+</head>
+
+<body>
+<div class="example" >
+	  <div id="paper" class="paper"></div>
+</div><!--end example-->
+
+<!--  get rid of the remove from the links -->
+<style>
+.link-tools .tool-remove { display: none }
+.popup_msg
+{
+position:absolute;
+z-index:10;
+width:172px;
+height:102px;
+text-align:center;
+color:'black';
+display:none;
+}
+</style>
+
+
+<div id="Renderer" title="Renderer.h">
+<pre><code class="c++"  >
+#ifndef RENDERER_H
+#define RENDERER_H
+
+#include &lt;string&gt;
+
+///
+/// An abstract interface for a 3D renderer based on the martin reddy book
+/// See http://APIBook.com/ for the latest version.
+
+class Renderer
+{
+public:
+  virtual ~Renderer() {}
+  virtual bool loadScene(const std::string &filename) = 0;
+  virtual void setViewportSize(int _w, int _h) = 0;
+  virtual void setCameraPos(float _x, float _y, float _z) = 0;
+  virtual void setLookAt(float _x, float _y, float _z) = 0;
+  virtual void render() = 0;
+};
+
+#endif
+
+
+</code></pre>
+
+<div id="OpenGLRenderer" title="OpenGLRenderer.h">
+<pre><code class="c++"  >
+#ifndef OPENGLRENDERER_H
+#define OPENGLRENDERER_H
+#include &lt;iostream&gt;
+#include "Renderer.h"
+
+class OpenGLRenderer : public Renderer
+{
+public:
+
+  bool loadScene(const std::string &_filename) {return true;}
+  void setViewportSize(int _w, int _h) {;}
+  void setCameraPos(float _x, float _y, float _z) {;}
+  void setLookAt(float _x, float _y, float _z) {;}
+  void render() {std::cout<<"OpenGL Render\n";}
+  ~OpenGLRenderer(){std::cout<<"OpenGL dtor called\n";}
+};
+
+#endif
+
+</code></pre>
+</div>
+
+<div id="DirectXRenderer" title="DirectXRenderer.h">
+<pre><code class="c++"  >
+#ifndef DIRECTXRENDERER_H
+#define DIRECTXRENDERER_H
+#include &lt;iostream&gt;
+#include "Renderer.h"
+
+class DirectXRenderer : public Renderer
+{
+public:
+
+  bool loadScene(const std::string &_filename) {return true;}
+  void setViewportSize(int _w, int _h) {;}
+  void setCameraPos(float _x, float _y, float _z) {;}
+  void setLookAt(float _x, float _y, float _z) {;}
+  void render() {std::cout<<"DirectXRenderer Render\n";}
+  ~DirectXRenderer(){std::cout<<"DirectXRenderer dtor called\n";}
+};
+
+#endif
+
+</code></pre>
+</div>
+
+<div id="RenderFactory" title="RenderFactory.h">
+
+<button id="source" type="button">source</button>
+<pre id = "codeBlock"> </pre>
+<script>
+$.ajax({
+  url: "code/RenderFactory.h",
+  success: function(data) {
+    var code = $("<code id='myCode' class='c++'>" + data + "</code>");
+    $("#codeBlock").html(code);
+  }
+})
+</script>
+
+
+</pre>
+</div>
+
+
+<script>
+
+// init the UML drawing using paper as the div
+initUML('#paper',1024,800, 'false');
+var w=250;
+var h=100;
+var classes = {
+    text1 :  addText(310,380,'creates',20),
+    Factory : createClass('RenderFactory',10,60,w+30,h,[],['+ createRenderer(_type : const std::string ) : Renderer *']),
+
+    ConCreator : createClass('OpenGLRenderer',540,340,w,h,[],['+ OpenGLRenderer() : Renderer', '~OpenGLRenderer()']),
+    ConCreator2 : createClass('DirectXRenderer',240,340,w,h,[],['+ DirectXRenderer() : Renderer', '~DirectXRenderer()']),
+    Creator : createAbstractClass('Renderer',350,40,w,h+40,[],[
+                                                            '+ ~Renderer()',
+                                                            '+ loadScene(_filename : std::string)',
+                                                            '+ setViewportSize( _w :int , _h : int)',
+                                                            '+ setCameraPos(_x : float, _y : float , _z : float)',
+                                                            '+ setLookAt(_x : float, _y : float, _z : float)',
+                                                            '+ render()'
+                                                            
+                                                            ]),
+
+
+};
+
+var relations = [
+    addGeneralization(classes.ConCreator.id,classes.Creator.id),
+    addGeneralization(classes.ConCreator2.id,classes.Creator.id),
+    addImplementation(classes.Creator.id,classes.Factory.id)
+
+];
+
+
+addToGraph(classes);
+addToGraph(relations);
+
+
+paper.on('cell:pointerclick', 
+    function(cellView, evt, x, y) 
+    { 
+    //console.log('cell view ' + cellView.model.get('name') + ' was clicked');
+    // get the name
+    var name= cellView.model.get('name');
+    if( name == 'Renderer')
+    {
+        $( function() 
+        {
+            $( "#Renderer" ).dialog({width : 'auto'});
+        } );
+    }
+    else if( name == 'OpenGLRenderer')
+    {
+        $( function() 
+        {
+            $( "#OpenGLRenderer" ).dialog({width : 'auto'});
+        } );
+    }
+    else if( name == 'DirectXRenderer')
+    {
+        $( function() 
+        {
+            $( "#DirectXRenderer" ).dialog({width : 'auto'});
+        } );
+    }
+    else if( name == 'RenderFactory')
+    {
+        $( function() 
+        {
+            $( "#RenderFactory" ).dialog({width : 'auto'});
+        } );
+    }
+  
+  }
+);
+
+/*
+paper.on('cell:mouseover', function(evt, x, y) { 
+    var name= evt.model.get('name');
+    if( name == 'Car' || name =='Engine')
+    {
+        //getting height and width of the message box
+        var height = $('#popuup_div').height();
+        var width = $('#popuup_div').width();
+        //calculating offset for displaying popup message
+        leftVal=x;
+        topVal=y;
+        //show the popup message and hide with fading effect
+        $('#popuup_div').css({left:leftVal,top:topVal}).show().fadeOut(500);
+    }
+
+})
+
+*/
+//use this code to hide code divs on load.
+//Shorthand for $( document ).ready()
+$(function() {
+    $('#Renderer').hide();
+    $('#OpenGLRenderer').hide();
+    $('#DirectXRenderer').hide();
+    $('#RenderFactory').hide();
+    hljs.highlightBlock(document.getElementById('codeBlock'));
+
+
+});
+
+$("code").each(function (i, e) {
+    hljs.highlightBlock(e);
+});
+
+</script>
+
+</body>
+
+</html>

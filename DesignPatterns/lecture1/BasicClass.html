@@ -28,7 +28,7 @@
 </style>
 
 
-<div id="dialog" display="none"" title="Vec3.h">
+<div id="dialog" title="Vec3.h">
 <pre><code class="c++"  >
 
 #ifndef VEC3_H_
@@ -142,7 +142,7 @@ classes.Vec3.on('change', function(element) {
 paper.on('cell:pointerclick', 
     function(cellView, evt, x, y) { 
 //        alert('cell view ' + cellView.model.id + ' was clicked'); 
-    //console.log('cell view ' + cellView.model.get('name') + ' was clicked');
+    console.log('cell view ' + cellView.model.get('name') + ' was clicked');
     // get the name
     var name= cellView.model.get('name');
     if( name == 'Vec3')
@@ -154,10 +154,6 @@ paper.on('cell:pointerclick',
   
   }
 );
-
-paper.on('cell:mouseover', function(evt, x, y) { 
-
-})
 
 
 _.each(classes, function(c) { graph.addCell(c); });
