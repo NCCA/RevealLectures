@@ -108,60 +108,6 @@ createCodeDivFromFile("RenderFactory", "RenderFactory.h/cpp","renderfactoryCPP",
 createCodeDivFromFile("RenderFactory", "RenderFactory.h/cpp","renderfactoryH", "code/RenderFactory.h");
 
 
-</script>
-
-<!--
-
-<div id="RenderFactory" title="RenderFactory.h/cpp">
-
-<pre id = "codeBlock"> </pre>
-<script>
-$.ajax({
-  url: "code/RenderFactory.h",
-  success: function(data) {
-    var code = $("<code id='myCode' >" + data + "</code>");
-    $("#codeBlock").html(code);
-  }
-})
-</script>
-</pre>
-
-<div id="RenderFactory" title="RenderFactory.cpp">
-
-<pre id = "codeBlock2"> </pre>
-<script>
-$.ajax({
-  url: "code/RenderFactory.cpp",
-  success: function(data) {
-    var code = $("<code id='myCode2' >" + data + "</code>");
-    $("#codeBlock2").html(code);
-  }
-})
-</script>
-</div>
-
-
-
-<div id="maincpp" title="main.cpp">
-
-<pre id = "mainCodeBlock"> </pre>
-<script>
-$.ajax({
-  url: "code/RenderFactoryMain.cpp",
-  success: function(data) {
-    var code = $("<code id='myCodemain' >" + data + "</code>");
-    $("#mainCodeBlock").html(code);
-  }
-})
-</script>
-</pre>
-
-</div>
-
--->
-
-<script>
-
 // init the UML drawing using paper as the div
 initUML('#paper',1024,800, 'false');
 var w=250;
@@ -200,9 +146,10 @@ addToGraph(relations);
 var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','maincpp','RenderFactory'];
 
 
-paper.on('cell:pointerclick', 
+paper.on('cell:pointerclick cell:pointerdown' , 
     function(cellView, evt, x, y) 
     { 
+
     //console.log('cell view ' + cellView.model.get('name') + ' was clicked');
     // get the name
     var name= cellView.model.get('name');
@@ -224,24 +171,10 @@ paper.on('cell:pointerclick',
 );
 
 
-/*
-paper.on('cell:mouseover', function(evt, x, y) { 
-    var name= evt.model.get('name');
-    if( name == 'Car' || name =='Engine')
-    {
-        //getting height and width of the message box
-        var height = $('#popuup_div').height();
-        var width = $('#popuup_div').width();
-        //calculating offset for displaying popup message
-        leftVal=x;
-        topVal=y;
-        //show the popup message and hide with fading effect
-        $('#popuup_div').css({left:leftVal,top:topVal}).show().fadeOut(500);
-    }
 
-})
+// paper.on('click',function(f){console.log("change "+f);});
+//graph.on('click', function(f){console.log("change "+f);});
 
-*/
 //use this code to hide code divs on load.
 //Shorthand for $( document ).ready()
 $(function() {
@@ -251,10 +184,13 @@ $(function() {
     hljs.highlightBlock(document.getElementById('renderfactoryH'));
     hljs.highlightBlock(document.getElementById('renderfactoryCPP'));
     hljs.highlightBlock(document.getElementById('mainCodeBlock'));
-
+    $('#RenderFactory').hide();
 });
 
 $("pre").each(function (i, e) {
+    hljs.highlightBlock(e);
+});
+$("code").each(function (i, e) {
     hljs.highlightBlock(e);
 });
 
