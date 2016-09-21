@@ -37,6 +37,9 @@ text-align:center;
 color:'black';
 display:none;
 }
+html, body {
+     -webkit-backface-visibility: visible;
+}
 </style>
 
 <div id="popuup_div" class="popup_msg">
@@ -100,7 +103,7 @@ addToGraph(classes);
 addToGraph(relations);
 
 
-paper.on('cell:pointerclick', 
+paper.on('cell:pointerclick cell:pointerdown', 
     function(cellView, evt, x, y) 
     { 
     //console.log('cell view ' + cellView.model.get('name') + ' was clicked');

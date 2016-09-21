@@ -37,7 +37,11 @@ text-align:center;
 color:'black';
 display:none;
 }
+html, body {
+     -webkit-backface-visibility: visible;
+}
 </style>
+<!--  note the -webkit-backface hack for iframes in iOS -->
 
 <script>
 createCodeDiv("Renderer","Renderer.h",`
@@ -146,11 +150,11 @@ addToGraph(relations);
 var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','maincpp','RenderFactory'];
 
 
-paper.on('cell:pointerclick cell:pointerdown' , 
+paper.on('cell:pointerdown cell:pointerclick' , 
     function(cellView, evt, x, y) 
     { 
 
-    //console.log('cell view ' + cellView.model.get('name') + ' was clicked');
+    console.log('cell view ' + cellView.model.get('name') + ' was clicked');
     // get the name
     var name= cellView.model.get('name');
     if( activeCells.indexOf(name) != -1)
@@ -193,6 +197,7 @@ $("pre").each(function (i, e) {
 $("code").each(function (i, e) {
     hljs.highlightBlock(e);
 });
+
 
 </script>
 

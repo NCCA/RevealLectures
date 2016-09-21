@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="/jmacey//js/reveal.js/lib/css/zenburn.css">
     <script>hljs.initHighlightingOnLoad();</script>
 
-    
-
 <title></title>
 </head>
 
@@ -63,60 +61,8 @@ var relations = [
 
 ];
 
-
 addToGraph(classes);
 addToGraph(relations);
-
-/*
-paper.on('cell:pointerclick', 
-    function(cellView, evt, x, y) 
-    { 
-    //console.log('cell view ' + cellView.model.get('name') + ' was clicked');
-    // get the name
-    var name= cellView.model.get('name');
-    if( name == 'Car')
-    {
-        $( function() 
-        {
-            $( "#Car" ).dialog({width : 'auto'});
-        } );
-    }
-    if( name == 'Engine')
-    {
-        $( function() 
-        {
-            $( "#Engine" ).dialog({width : 'auto'});
-        } );
-    }
-  
-  }
-);*/
-
-/*
-paper.on('cell:mouseover', function(evt, x, y) { 
-    var name= evt.model.get('name');
-    if( name == 'Car' || name =='Engine')
-    {
-        //getting height and width of the message box
-        var height = $('#popuup_div').height();
-        var width = $('#popuup_div').width();
-        //calculating offset for displaying popup message
-        leftVal=x;
-        topVal=y;
-        //show the popup message and hide with fading effect
-        $('#popuup_div').css({left:leftVal,top:topVal}).show().fadeOut(500);
-    }
-
-})
-
-*/
-// use this code to hide code divs on load.
-// Shorthand for $( document ).ready()
-// $(function() {
-//     $('#Car').hide();
-//     $('#Engine').hide();
-
-// });
 
 
 
