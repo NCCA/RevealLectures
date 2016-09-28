@@ -107,9 +107,9 @@ public:
 };
 #endif`);
 
-createCodeDivFromFile("maincpp", "main.cpp","mainCodeBlock", "code/RenderFactoryMain.cpp");
-createCodeDivFromFile("RenderFactory1", "RenderFactory.cpp","renderfactoryCPP", "code/RenderFactory.cpp");
-createCodeDivFromFile("RenderFactory2", "RenderFactory.h","renderfactoryH", "code/RenderFactory.h");
+createCodeDivFromFile("maincpp", "main.cpp","mainCodeBlock", "code/RenderFactory/RenderFactoryMain.cpp");
+createCodeDivFromFile("RenderFactory1", "RenderFactory.cpp","renderfactoryCPP", "code/RenderFactory/RenderFactory.cpp");
+createCodeDivFromFile("RenderFactory2", "RenderFactory.h","renderfactoryH", "code/RenderFactory/RenderFactory.h");
 
 
 // init the UML drawing using paper as the div
@@ -186,11 +186,6 @@ $(function() {
     _.each(activeCells,function(name) {
         $('#'+name).hide();
     });
-    // hljs.highlightBlock(document.getElementById('renderfactoryH'));
-    // hljs.highlightBlock(document.getElementById('renderfactoryCPP'));
-    // hljs.highlightBlock(document.getElementById('mainCodeBlock'));
-
- //   $('#RenderFactory').hide();
 });
 
 
