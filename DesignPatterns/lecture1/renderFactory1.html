@@ -148,9 +148,13 @@ addToGraph(relations);
 
 // These are the names of the cells for clicking on
 var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','maincpp','RenderFactory1','RenderFactory2'];
+var desktopMobileClickMode='cell:pointerclick';
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+ // some code..
+ desktopMobileClickMode='cell:pointerdown cell:pointerclick';
+}
 
-
-paper.on('cell:pointerdown cell:pointerclick' , 
+paper.on(desktopMobileClickMode , 
     function(cellView, evt, x, y) 
     { 
 
@@ -175,10 +179,6 @@ paper.on('cell:pointerdown cell:pointerclick' ,
     }
 );
 
-
-
-// paper.on('click',function(f){console.log("change "+f);});
-//graph.on('click', function(f){console.log("change "+f);});
 
 //use this code to hide code divs on load.
 //Shorthand for $( document ).ready()
