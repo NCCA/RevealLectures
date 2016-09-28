@@ -108,8 +108,8 @@ public:
 #endif`);
 
 createCodeDivFromFile("maincpp", "main.cpp","mainCodeBlock", "code/RenderFactoryMain.cpp");
-createCodeDivFromFile("RenderFactory", "RenderFactory.h/cpp","renderfactoryCPP", "code/RenderFactory.cpp");
-createCodeDivFromFile("RenderFactory", "RenderFactory.h/cpp","renderfactoryH", "code/RenderFactory.h");
+createCodeDivFromFile("RenderFactory1", "RenderFactory.cpp","renderfactoryCPP", "code/RenderFactory.cpp");
+createCodeDivFromFile("RenderFactory2", "RenderFactory.h","renderfactoryH", "code/RenderFactory.h");
 
 
 // init the UML drawing using paper as the div
@@ -168,7 +168,8 @@ paper.on('cell:pointerdown cell:pointerclick' ,
     {
        $( function() 
         {
-            $( "#RenderFactory" ).dialog({width : 'auto'});
+            $( "#RenderFactory1" ).dialog({width : 'auto'});
+            $( "#RenderFactory2" ).dialog({width : 'auto'});
         } ); 
     }
     }

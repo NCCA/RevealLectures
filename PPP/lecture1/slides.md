@@ -333,8 +333,9 @@ gcc -g -Wall  HelloWorld.c -o HelloWorld
 
 ---
 
-<H2>My Notes </H2>
-<div class="stretch">
+# Self study
+- [https://computationalthinkingcourse.withgoogle.com/unit](https://computationalthinkingcourse.withgoogle.com/unit)
+- [Computational Thinking](http://blog.stephenwolfram.com/2015/03/frontiers-of-computational-thinking-a-sxsw-report/)
+- [numpy](http://www.numpy.org/)
+- [Teaching kids real math with computers](http://www.ted.com/talks/conrad_wolfram_teaching_kids_real_math_with_computers?language=en)
 
-<iframe id="notesFrame" onpageshow="loadNotes();" onload="loadNotes();" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%" ></iframe>
-</div>

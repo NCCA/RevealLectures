@@ -205,6 +205,7 @@ Design patterns really are from hell!”
 - <a href="#/singleton">Singelton</a>
 - <a href="#/monostate">Monostate</a>
 - <a href="#/factoryMethod">Factory Method</a>
+- <a href="#/extensibleFactory">Extensible Factory</a>
 
 --
 
@@ -408,6 +409,20 @@ int main()
 
 ---
 
+<!-- .slide: id="extensibleFactory" -->
+
+# Extensible Factories
+- This further decouples the concrete classes from the methods
+- We need to maintain a map of registered creation methods within the creator
+- This now means that the extensible factory holds state data
+- Usually this means they are created using a singleton so only one can ever exist
+  - or use a static member!
+
+--
+
+# [Extensible Factory](https://github.com/NCCA/DesignPatterns/tree/master/DesignCode1/ExtensibleFactory)
+
+---
 
 #References
 
