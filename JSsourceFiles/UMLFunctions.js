@@ -128,7 +128,7 @@ document.body.appendChild(div);
 
 function createCodeDivFromFile(_id, _title,_codeBlockName, _file)
 {
-  console.log(_codeBlockName);
+  //console.log(_codeBlockName);
   var div = document.createElement('div');
   div.setAttribute('id', _id); // set id which should be used later for hiding
   div.setAttribute('title', _title);  // shown in the dialog as using jQuery
@@ -142,7 +142,9 @@ $.ajax({
   success: function(data) {
     var code = $("<code >" + data + "</code>");
     $("#"+_codeBlockName).html(code);
+  hljs.highlightBlock(document.getElementById(_codeBlockName));
+
   }
 })
-  
+ 
 }

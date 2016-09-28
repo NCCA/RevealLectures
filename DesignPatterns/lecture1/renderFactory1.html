@@ -147,7 +147,7 @@ addToGraph(classes);
 addToGraph(relations);
 
 // These are the names of the cells for clicking on
-var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','maincpp','RenderFactory'];
+var activeCells=['Renderer','OpenGLRenderer','DirectXRenderer','maincpp','RenderFactory1','RenderFactory2'];
 
 
 paper.on('cell:pointerdown cell:pointerclick' , 
@@ -186,19 +186,18 @@ $(function() {
     _.each(activeCells,function(name) {
         $('#'+name).hide();
     });
-    hljs.highlightBlock(document.getElementById('renderfactoryH'));
-    hljs.highlightBlock(document.getElementById('renderfactoryCPP'));
-    hljs.highlightBlock(document.getElementById('mainCodeBlock'));
-    $('#RenderFactory').hide();
+    // hljs.highlightBlock(document.getElementById('renderfactoryH'));
+    // hljs.highlightBlock(document.getElementById('renderfactoryCPP'));
+    // hljs.highlightBlock(document.getElementById('mainCodeBlock'));
+
+ //   $('#RenderFactory').hide();
 });
 
-$("pre").each(function (i, e) {
-    hljs.highlightBlock(e);
-});
+
 $("code").each(function (i, e) {
     hljs.highlightBlock(e);
+    
 });
-
 
 </script>
 
