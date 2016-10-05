@@ -1,4 +1,4 @@
-#include &lt;iostream&gt;
+#include <iostream>
 #include "RenderFactory.h"
 #include "OpenGLRenderer.h"
 #include "DirectXRenderer.h"
@@ -12,24 +12,24 @@ int main()
   RendererFactory::registerRenderer("GLES", GLES::create);
   // create an OpenGL renderer
   Renderer *ogl = RendererFactory::createRenderer("opengl");
-  ogl-&gt;render();
+  ogl->render();
   delete ogl;
 
   // create a DirectX software renderer
   Renderer *DirectX = RendererFactory::createRenderer("DirectX");
-  DirectX-&gt;render();
+  DirectX->render();
   delete DirectX;
 
   // create a DirectX software renderer
   Renderer *gles = RendererFactory::createRenderer("GLES");
-  gles-&gt;render();
+  gles->render();
   delete gles;
   // unregister the DirectX renderer
   RendererFactory::unregisterRenderer("DirectX");
   DirectX = RendererFactory::createRenderer("DirectX");
   if (!DirectX)
   {
-    std::cout &lt;&lt; "DirectX renderer unregistered" &lt;&lt; std::endl;
+    std::cout << "DirectX renderer unregistered" << std::endl;
   }
   return EXIT_SUCCESS;
 }

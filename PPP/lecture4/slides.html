@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Lecture 4 Memory and Pointers</title>
+    <title>ASE Lecture 3 memory and pointers</title>
     <link rel="stylesheet" href="/jmacey/js/reveal.js/css/reveal.css">
     <link rel="stylesheet" href="/jmacey//js/reveal.js/css/theme/white.css" id="theme">
     <link rel="stylesheet" href="/jmacey//js/reveal.js/lib/css/zenburn.css">
@@ -26,7 +26,11 @@
     <script src="/jmacey/js/reveal.js/lib/js/head.min.js"></script>
     <script src="/jmacey/js/reveal.js/js/reveal.js"></script>
     <script src="/jmacey/js/jquery/jquery.min.js"></script>
-
+    <script>
+      // this is a uniqe id for the slide for saving notes later I will update to use IndexedDB but 
+      // this will work on all systems
+      var gSlideID='PPPLecture1';
+    </script>
  
 
 
@@ -43,7 +47,7 @@
     </div>
   </div>
 
-  <div id="showNotes" class="modal">
+  <div id="showNotes" class="modal ">
     <!-- Modal content -->
     <div class="modal-content">
       <span id="closeNotes" class="closeStyle">x</span>
@@ -58,7 +62,7 @@
   </div>
 
 
- <!-- 2. Create hidden header/footer <div> -->
+  <!-- 2. Create hidden header/footer <div> -->
   <div id="hidden" style="display:none;">
     <div id="header">
       <div id="header-left">
@@ -79,7 +83,7 @@
 
 
     <script src="/jmacey/js/reveal.js/slidefunctions.js"></script>
-    
+  
  
 </div>
 </div>

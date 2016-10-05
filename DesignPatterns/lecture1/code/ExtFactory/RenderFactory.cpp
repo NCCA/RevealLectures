@@ -1,9 +1,9 @@
 #include "RenderFactory.h"
 
 // instantiate the static variable in RendererFactory
-std::unordered_map&lt;std::string, std::function&lt;Renderer *()&gt;&gt;  RendererFactory::m_renderers;
+std::unordered_map<std::string, std::function<Renderer *()>>  RendererFactory::m_renderers;
 
-void RendererFactory::registerRenderer(const std::string &type,std::function&lt;Renderer *()&gt; cb)
+void RendererFactory::registerRenderer(const std::string &type,std::function<Renderer *()> cb)
 {
   m_renderers[type] = cb;
 }
@@ -20,7 +20,7 @@ Renderer *RendererFactory::createRenderer(const std::string &type)
   if (it != m_renderers.end())
   {
     // call the creation callback to construct this derived type
-    return it-&gt;second();
+    return it->second();
   }
   return nullptr;
 }

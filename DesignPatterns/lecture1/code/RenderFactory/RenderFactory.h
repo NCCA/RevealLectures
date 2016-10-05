@@ -1,5 +1,6 @@
 #include "Renderer.h"
-#include &lt;string&gt;
+#include <string>
+
 class RenderFactory
 {
 public :

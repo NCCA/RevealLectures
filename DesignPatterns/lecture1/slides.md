@@ -206,6 +206,7 @@ Design patterns really are from hell!”
 - <a href="#/monostate">Monostate</a>
 - <a href="#/factoryMethod">Factory Method</a>
 - <a href="#/extensibleFactory">Extensible Factory</a>
+- <a href="#/Lazyinitialisation">Lazy initialisation</a>
 
 --
 
@@ -425,6 +426,36 @@ int main()
 <div class="stretch" >
 <iframe src="extensibleFactory.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
 </div>
+
+
+---
+
+<!-- .slide: id="Lazyinitialisation" -->
+
+# [Lazy initialisation](https://en.wikipedia.org/wiki/Lazy_initialization)
+- Saves memory
+- Delay object creation until needed 
+  - Textures
+  - Geometries
+- Can be combined with a Factory to create “Lazy Factories”
+- Can be implemented as the “Multiton pattern” 
+<div class="stretch" >
+<iframe src="multiton.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+# [Texture](https://github.com/NCCA/DesignPatterns/tree/master/DesignCode1/Texture) 
+- In this case we will use static attributes to contain a map of std::string to Texture * objects
+- If the name key exists the instance will be returned.
+- If not a new object will be created and stored in the map (unordered_map)
+
+--
+
+# [Texture](https://github.com/NCCA/DesignPatterns/tree/master/DesignCode1/Texture) 
+
+
+
 
 
 ---

@@ -1,5 +1,5 @@
-#include &lt;iostream&gt;
-#include &lt;RenderFactory.h&gt;
+#include <iostream>
+#include <RenderFactory.h>
 #include "OpenGLRenderer.h"
 int main()
 {
@@ -7,21 +7,21 @@ int main()
     RenderFactory *f = new RenderFactory;
 
     // create an OpenGL renderer
-    Renderer *renderType = f-&gt;createRenderer("OpenGL");
-    renderType-&gt;render();
+    Renderer *renderType = f->createRenderer("OpenGL");
+    renderType->render();
     delete renderType;
 
     //Renderer *directX =
-    renderType=f-&gt;createRenderer("DirectX");
-    renderType-&gt;render();
+    renderType=f->createRenderer("DirectX");
+    renderType->render();
     delete renderType;
 
     delete f;
 
-    Renderer *unknown= f-&gt;createRenderer("raytracer");
+    Renderer *unknown= f->createRenderer("raytracer");
     if(unknown == 0)
     {
-      std::cout&lt;&lt;"don't know how to create a raytracer\n";
+      std::cout<<"don't know how to create a raytracer\n";
     }
 
     return EXIT_SUCCESS;

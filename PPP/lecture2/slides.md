@@ -2,7 +2,7 @@
 
 Jon Macey
 
---
+---
 
 ##Structured Programming
 - Structured programming is an attempt to formalize the process of program development.
@@ -13,7 +13,7 @@ Jon Macey
 --
 
 ##Structured Programming Theorem
-- The structured programming theorem states that any computable function may be built from three building blocks :-
+- The structured programming theorem states that any [computable function](https://en.wikipedia.org/wiki/Computable_function) may be built from three building blocks :-
   - sequences of operations.
   - selections ( executing one of two operations based on a boolean value).
   - iteration (repetition) repeating an operation until some sentinel value is reached.
@@ -240,7 +240,7 @@ letter = "a"|"b"|"c"|"d"|"e"|"f"|"g"|"h"|"i"|"j"|"k"|"l"|"m"|"n"|"o"|"p"|"q"|"r"
 
 start char = "letter" | "_";
 
-variable name = start char , {digit} | {letter};
+variable name = start char , {digit} | {start char};
 ```
 
 
