@@ -482,6 +482,37 @@ int main()
 
 ---
 
+#Dependancy Injection
+- Dependancy injection is a technique where an object is passed into a class (injected) instead of having a class create and store the object itself.
+- This means the class containing the object doesn’t need to know how to create the object.
+- This is know as “inversion of control”
+  - Makes it easier to implement “unit testing” as we can inject test cases into our classes
+  - Decouples “concrete” from “concrete”
+
+--
+
+# Types of injection
+- Type 1 or interface injection, in which the exported module provides an interface that its users must implement in order to get the dependencies at runtime
+- Type 2 or setter injection, in which the dependent module exposes a setter method that the framework uses to inject the dependency.
+- Type 3 or constructor injection, in which the dependencies are provided through the class constructor.
+
+--
+
+# The Law of Demeter
+- The Law of Demeter for functions (methods)  attempts to minimise coupling between modules in any given program. 
+- It tries to prevent you from reaching into an object to gain access to a third object’s methods. 
+- By writing “shy” code that honours the Law of Demeter as much as possible, we can achieve the goal of minimising coupling between modules.
+
+--
+
+# The Law of Demeter
+- The pragmatic programmer” Ch. 5 has a good discussion of this
+
+<img src="images/dementer.png" width="60%">
+
+---
+
+
 <!-- .slide: id="Builder" -->
 # The Builder Pattern
 - The Builder Creational Pattern is used to separate the construction of a complex object from its representation so that the same construction process can create different objects representations.
@@ -536,15 +567,28 @@ pizza.setBacon(true);
 
 --
 
-# [Pizza Example]
+# [Pizza Example](https://github.com/NCCA/DesignPatterns/tree/master/DesignCode1/PizzaBuilder)
 <div class="stretch">
 <iframe src="pizzabuilder.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
 </div>
 
-
-
 ---
 
+# Object Pools
+- This is a creation / optimisation pattern
+- Intent
+  - Improve performance and memory use by reusing objects from a fixed pool instead of allocating and freeing them individually.
+  - Allows use to use contiguous memory on the heap and reduce allocations which may be expensive.
+  - Reduces memory fragmentation
+
+--
+
+# Fragmentation
+- Fragmentation means the free space in our heap is broken into smaller pieces of memory instead of one large open block
+
+<img src="images/frag.png" width="60%">
+
+---
 
 #References
 
