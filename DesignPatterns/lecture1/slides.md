@@ -202,11 +202,13 @@ Design patterns really are from hell!”
 
 <!-- .slide: id="creational" -->
 # Creational
-- <a href="#/singleton">Singelton</a>
+- <a href="#/singleton">Singleton</a>
 - <a href="#/monostate">Monostate</a>
 - <a href="#/factoryMethod">Factory Method</a>
 - <a href="#/extensibleFactory">Extensible Factory</a>
 - <a href="#/Lazyinitialisation">Lazy initialisation</a>
+- <a href="#/Prototype">Prototype</a>
+- <a href="#/Builder">Builder</a>
 
 --
 
@@ -458,9 +460,91 @@ int main()
 <iframe src="texture.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
 </div>
 
+---
+
+<!-- .slide: id="Prototype" -->
+# The prototype pattern
+- This pattern uses a prototypical instance to clone new instances of an object
+ -This helps to 
+  - avoid subclasses of an object creator in the client application, like the abstract factory pattern does.
+  - avoid the inherent cost of creating a new object in the standard way (e.g., using the 'new' keyword) when it is prohibitively expensive for a given application.
+
+--
+
+# [The prototype pattern](https://github.com/NCCA/DesignPatterns/tree/master/DesignCode1/Prototype)
+
+<div class="stretch" >
+<iframe src="prototype.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="70%" width="100%"></iframe>
+<ul>
+<li>Prototypes of new products are often built prior to full production, but in this example, the prototype is passive and does not participate in copying itself
+</ul>
+</div>
+
+---
+
+<!-- .slide: id="Builder" -->
+# The Builder Pattern
+- The Builder Creational Pattern is used to separate the construction of a complex object from its representation so that the same construction process can create different objects representations.
+- Helps to eliminate “telescoping constructors”
+
+```
+Pizza(int size) { ... }
+Pizza(int size, boolean cheese) { ... }
+Pizza(int size, boolean pepperoni) { ... }
+Pizza(int size, boolean cheese, boolean pepperoni, boolean bacon, int price, int) { ... }
+```
+
+--
+
+# The Builder Pattern
+
+- Helps to eliminate the use of setters and getters after object construction
+
+```
+Pizza pizza = new Pizza(12);
+pizza.setCheese(true);
+pizza.setPepperoni(true);
+pizza.setBacon(true);
+```
+
+--
+
+# Builder Pattern
+
+- Define an intermediate object whose member functions define the desired object part by part.
+- Build Pattern lets us defer the construction of the object until all the options for creation have been specified.
+
+--
+
+# Builder Pattern
+
+
+<div class="stretch">
+<iframe src="builder1.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
+--
+
+<img src="images/builder.png" width="90%">
+
+--
+
+# Pizza Example
+- This is a classic Builder pattern example
+- It is used to illustrate the key concepts in the Builder pattern
+- We start with a basic Pizza class
+
+--
+
+# [Pizza Example]
+<div class="stretch">
+<iframe src="pizzabuilder.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
+
 
 
 ---
+
 
 #References
 
