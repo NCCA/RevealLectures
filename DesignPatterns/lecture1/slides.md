@@ -574,7 +574,7 @@ pizza.setBacon(true);
 
 ---
 
-# Object Pools
+# [Object Pools](http://gameprogrammingpatterns.com/object-pool.html)
 - This is a creation / optimisation pattern
 - Intent
   - Improve performance and memory use by reusing objects from a fixed pool instead of allocating and freeing them individually.
@@ -586,15 +586,79 @@ pizza.setBacon(true);
 # Fragmentation
 - Fragmentation means the free space in our heap is broken into smaller pieces of memory instead of one large open block
 
-<img src="images/frag.png" width="60%">
-
----
-
-#References
+<a href="http://gameprogrammingpatterns.com/object-pool.html" target="_blank"> <img src="images/frag.png" width="60%"> </a>
 
 --
 
-# further reading
+# Object Pool
+- Define a pool of re-usable objects that you need to frequently create and destroy
+- Objects are similar in size.
+- Allocating objects on the heap is slow or could lead to memory fragmentation.
+- Each object encapsulates a resource such as a database or network connection that is expensive to acquire and could be reused.
+- For creating threads (we will cover thread pools next year)
+
+--
+
+# Object Pool
+
+- The pool may waste memory on unneeded objects
+- We can only have a fixed amount of objects at any one time
+- Memory size for objects is fixed (however with pointers we can do other tricks but will defeat the object of the pool)
+- Reused objects are not cleared and will remain in memory.
+
+--
+
+# [Particle Pool](https://github.com/NCCA/DesignPatterns/tree/master/ObjectPool) 
+
+<div class="stretch" >
+<iframe src="pool.html" style="border:0px #FFFFFF solid;" name="code" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%"></iframe>
+</div>
 
 
+---
 
+# References
+
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John 1994. Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley.
+- Steve McConnell. 2004. Code Complete, Second Edition. Microsoft Press, Redmond, WA, USA.
+- Martin Reddy, 2011. API Design for C++ Morgan Kaufmann.
+- Andrei Alexandrescu  2001. Modern C++ Design, Addison-Wesley.
+
+--
+
+# References
+
+- http://en.wikipedia.org/wiki/Software_design_pattern
+- http://en.wikipedia.org/wiki/SOLID
+- http://en.wikipedia.org/wiki/Abstract_factory_pattern
+- http://en.wikipedia.org/wiki/Builder_pattern
+- http://en.wikipedia.org/wiki/Factory_method_pattern
+
+--
+
+# References
+
+- http://en.wikipedia.org/wiki/Lazy_initialization
+- http://en.wikipedia.org/wiki/Multiton_pattern
+- http://en.wikipedia.org/wiki/Prototype_pattern
+- http://en.wikipedia.org/wiki/Liskov_substitution_principle
+- “The Pragmatic Programmer”  Andrew Hunt  , David Thomas
+- http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.50.3681&rep=rep1&type=pdf
+
+--
+
+# References 
+
+- http://www.cplusplus.com/reference/memory/auto_ptr/
+- http://ootips.org/yonat/4dev/smart-pointers.html
+- http://sourcemaking.com/
+- http://sourcemaking.com/design_patterns/observer/cpp/3
+- http://www.c2.com/cgi-bin/wiki?ModelViewController
+
+--
+
+# References
+
+- http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
+- http://sourcemaking.com/design_patterns/memento
+- http://advancedcppwithexamples.blogspot.co.uk/2010/09/c-example-for-composite-design-pattern.html
